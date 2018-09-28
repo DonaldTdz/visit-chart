@@ -1,11 +1,19 @@
+<import src="/util/grid/index.axml"/>
 <view>
-    <button type="primary" size="" onTap="loginSystem"> 点击登录 </button>
-    <view class="row">CorpId:{{corpId}}</view>
-
-    <view hidden="{{hideList}}">
-        <view class="row">AuthCode:{{authCode}}</view>
-        <view class="row">userId:{{userId}}</view>
-        <view class="row">name:{{userName}}</view>
-    </view>
-    
+    <card thumb="{{userInfo.avatar}}" title="{{userInfo.name}}" subTitle="{{userInfo.position}}" arrow={{false}} />
 </view>
+<view class="container">
+  <dd-charts canvasId="ddchart-dom-bar" onDraw="onDraw"></dd-charts>
+</view>
+<list>
+  <block a:for="{{items}}">
+    <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}"  arrow="{{true}}" wrap="{{true}}"   >   
+      <view class="{{item.className}}" > {{item.name}} </view>    
+      <view slot="extra">    {{item.num}}  </view>
+    </list-item>
+  </block>
+</list>
+<view style="margin-top:10px;">
+  <template is="grid" data="{{...arr}}"/>
+</view>
+  

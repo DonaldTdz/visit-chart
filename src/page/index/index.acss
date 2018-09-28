@@ -1,4 +1,26 @@
+@import '/util/grid/index.acss';
+
 .row{
     height: 60rpx;
     line-height: 60rpx;
+}
+
+.container{
+  height:180px; 
+  text-align: center;
+  margin:6px 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.complete{
+  color: #1890FF;
+}
+
+.process{
+ color: #13C2C2;
+}
+
+.overdue{
+ color: #FE5D4D;
 }

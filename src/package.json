@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "dd-charts": "^1.0.5",
+    "mini-ddui": "^0.0.5"
+  }
+}

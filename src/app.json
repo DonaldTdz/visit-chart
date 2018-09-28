@@ -1,11 +1,14 @@
 {
   "pages": [
-    "page/index/index"
+    "page/index/index",
+    "page/district/district",
+    "page/task/task",
+    "page/month/month"
   ],
   "window": {
     "enableWK": "YES",
     "enableDSL": true,
-    "defaultTitle": "企业内部E应用1.1",
+    "defaultTitle": "智能报表",
     "backgroundColor": "#F5F5F9",
     "pullRefresh": false,
     "allowsBounceVertical": true
@@ -14,9 +17,7 @@
     "textColor": "#404040",
     "selectedColor": "#108ee9",
     "backgroundColor": "#F5F5F9",
-    "items": [
-      
-    ]
+    "items": []
   },
   "debug": true
 }

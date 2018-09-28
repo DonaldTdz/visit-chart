@@ -12,6 +12,8 @@ App({
     console.log('App Hide');
   },
   globalData: {
+    userInfo: { id: '', name: '', position: '', avatar: '' },
+    host: 'http://hechuangdd.vaiwan.com/',
     corpId:''
   }
 });

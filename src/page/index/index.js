@@ -1,75 +1,128 @@
 let app = getApp();
 
-
-//内网穿透工具介绍:
-// https://open-doc.dingtalk.com/microapp/debug/ucof2g
-//替换成开发者后台设置的安全域名
-let url = "http://******";
-
 Page({
-    data:{
-        corpId: '',
-        authCode:'',
-        userId:'',
-        userName:'',
-        hideList: true,
-    },
-    loginSystem() {
-        dd.showLoading();
-        dd.getAuthCode({
-            success:(res)=>{
-                this.setData({
-                    authCode:res.authCode
-                })
-                //dd.alert({content: "step1"});
-                dd.httpRequest({
-                    url: url+'/login',
-                    method: 'POST',
-                    data: {
-                        authCode: res.authCode
-                    },
-                    dataType: 'json',
-                    success: (res) => {
-                        // dd.alert({content: "step2"});
-                        console.log('success----',res)
-                        let userId = res.data.result.userId;
-                        let userName = res.data.result.userName;
-                        this.setData({
-                            userId:userId,
-                            userName:userName,
-                            hideList:false
-                        })
-                    },
-                    fail: (res) => {
-                        console.log("httpRequestFail---",res)
-                       dd.alert({content: JSON.stringify(res)});
-                    },
-                    complete: (res) => {
-                        dd.hideLoading();
-                    }
-                    
-                });
-            },
-            fail: (err)=>{
-                // dd.alert({content: "step3"});
-                dd.alert({
-                    content: JSON.stringify(err)
-                })
-            }
-        })
-
-    },
-    onLoad(){
-
-        let _this = this;
-
-        this.setData({
-            corpId: app.globalData.corpId
-        })
-        
-        //dd.alert({content: "step1"});
-         
-        
-        
+  data: {
+    userInfo: { id: '', name: '', position: '', avatar: '' },
+    width: 200,
+    height: 200,
+    chart: null,
+    items: [{ name: '完成', num: 700, percent: 0.7, a: '1', className:'complete' },
+      { name: '进行中', num: 200, percent: 0.2, a: '1', className: 'process'},
+      { name: '逾期', num: 100, percent: 0.1, a: '1', className: 'overdue' }],
+    arr: {
+      onItemTap: 'onGridItemTap',
+      list: [
+        {
+          icon: '/images/dodge.png',
+          title: '区县统计',
+          page: '../district/district',
+        }, {
+          icon: '/images/bar.png',
+          title: '任务统计',
+          page: '../task/task',
+        }, {
+          icon: '/images/column.png',
+          title: '按月统计',
+          page: '../month/month',
+        }
+      ],
     }
+  },
+  loginSystem() {
+    if (app.globalData.userInfo.id == '') {
+      dd.showLoading();
+      //免登陆
+      //dd.getAuthCode({
+      //success: (res) => {
+      //  console.log('My authCode', res.authCode);
+      dd.httpRequest({
+        url: app.globalData.host + 'api/services/app/Employee/GetDingDingUserByCodeAsync',
+        method: 'Get',
+        data: {
+          code: '',//res.authCode,
+        },
+        dataType: 'json',
+        success: (res) => {
+          //console.log('res', res);
+          app.globalData.userInfo = res.data.result;
+          this.setData({ userInfo: app.globalData.userInfo });
+        },
+        fail: function(res) {
+          dd.alert({ content: '获取用户信息异常' });
+        },
+        complete: function(res) {
+          dd.hideLoading();
+          //dd.alert({ content: 'complete' });
+        }
+      });
+      //},
+      //fail: function(err) {
+      //  dd.alert({ content: '授权出错' });
+      //  dd.hideLoading();
+      //}
+      //});
+    } else {
+      this.setData({ userInfo: app.globalData.userInfo });
+    }
+  },
+  onLoad() {
+    this.loginSystem();
+  },
+  onDraw(ddChart) {
+    //dd-charts组件内部会回调此方法，返回图表实例ddChart
+    //提示：可以把异步获取数据及渲染图表逻辑放onDraw回调里面
+    ddChart.clear()
+    var map = {};
+    const chartDataNew = this.data.items;
+    chartDataNew.map(function(obj) {
+      map[obj.name] = obj.percent * 100 + '%';
+    });
+    ddChart.source(chartDataNew, {
+      percent: {
+        formatter: function formatter(val) {
+          return val * 100 + '%';
+        }
+      }
+    })
+    ddChart.legend({
+      position: 'bottom',
+      marker: 'square',
+      align: 'center',
+      itemFormatter: function itemFormatter(val) {
+        return val + '    ' + map[val];
+      }
+    })
+    ddChart.tooltip(false)
+    ddChart.coord('polar', {
+      transposed: true,
+      radius: 0.85,
+      innerRadius: 0.618
+    })
+    ddChart.axis(false);
+    ddChart.interval().position('a*percent').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust('stack').style({
+      lineWidth: 1,
+      stroke: '#fff',
+      lineJoin: 'round',
+      lineCap: 'round'
+    });
+    //ddChart.guide().html({
+    //  position: ['50%', '45%'],
+    //  html: '<div style="width: 250px;height: 40px;text-align: center;">' + '<div style="font-size: 16px">计划总数</div>' + '<div style="font-size: 24px">120</div>' + '</div>'
+    //});
+    ddChart.guide().text({
+      position: ['50%', '50%'],
+      content: 1000,
+      style: {
+        fontSize: 18
+      }
+    });
+    ddChart.render();
+  },
+  onGridItemTap(e) {
+    const curIndex = e.currentTarget.dataset.index;
+    const pageNav = this.data.arr.list[curIndex];
+    dd.navigateTo({
+      url: pageNav.page,
+    });
+  }
 })
