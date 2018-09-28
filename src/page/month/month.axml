@@ -1,3 +1,4 @@
-<view>
-  New Page
+<segment values="{{values}}" selectedIndex="{{selectedIndex}}" onChange="handleChange" onItemTap="handleItemTap" />
+<view class="container" >
+  <dd-charts canvasId="ddchart-dom-bar" style="width:200%;" onDraw="onDraw"></dd-charts>
 </view>

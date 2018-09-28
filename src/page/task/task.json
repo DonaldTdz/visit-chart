@@ -1,3 +1,6 @@
 {
-  "defaultTitle": "任务统计"
+  "defaultTitle": "任务统计",
+   "usingComponents":{
+        "dd-charts": "dd-charts/es/f2/index"
+    }
 }
