@@ -5,3 +5,11 @@
   background: #fff;
   border-radius: 4px;
 }
+
+.rightSeg{
+  text-align: right;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}

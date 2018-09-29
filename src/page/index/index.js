@@ -66,7 +66,7 @@ Page({
     }
   },
   onLoad() {
-    //this.loginSystem();
+    this.loginSystem();
   },
   onDraw(ddChart) {
     //dd-charts组件内部会回调此方法，返回图表实例ddChart

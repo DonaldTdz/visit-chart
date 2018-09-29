@@ -75,7 +75,8 @@ const chartDataNew = [{
     name: '逾期',
     month: '2018-06',
     num: 10
-  }, {
+  }, 
+  /*{
     name: '完成',
     month: '2018-07',
     num: 500
@@ -151,7 +152,8 @@ const chartDataNew = [{
     name: '逾期',
     month: '2018-12',
     num: 10
-  }]
+  }*/
+  ]
 
 let app = getApp()
 
