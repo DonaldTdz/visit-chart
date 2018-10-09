@@ -107,12 +107,12 @@ Page({
         var map = {};
         const chartDataNew = this.data.items;
         chartDataNew.map(function(obj) {
-          map[obj.name] = obj.percent * 100 + '%';
+          map[obj.name] = obj.percent + '%';
         });
         ddChart.source(chartDataNew, {
           percent: {
             formatter: function formatter(val) {
-              return val * 100 + '%';
+              return val + '%';
             }
           }
         })
