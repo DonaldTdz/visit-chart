@@ -3,7 +3,10 @@
     "page/index/index",
     "page/district/district",
     "page/task/task",
-    "page/month/month"
+    "page/month/month",
+    "page/detail/detail",
+    "page/detail/visit/visit",
+    "page/detail/visit/visit-detail/visit-detail"
   ],
   "window": {
     "enableWK": "YES",

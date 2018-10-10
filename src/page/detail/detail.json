@@ -1,0 +1,8 @@
+{
+  "defaultTitle": "任务明细",
+   "usingComponents":{
+        "list":"mini-ddui/es/list/index",
+        "list-item":"mini-ddui/es/list/list-item/index",
+        "card":"mini-ddui/es/card/index"
+    }
+}

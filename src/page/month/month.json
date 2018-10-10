@@ -2,6 +2,8 @@
   "defaultTitle": "按月统计",
    "usingComponents":{
         "dd-charts": "dd-charts/es/f2/index",
-        "segment":"mini-ddui/es/segment/index"
+        "segment":"mini-ddui/es/segment/index",
+        "list":"mini-ddui/es/list/index",
+        "list-item":"mini-ddui/es/list/list-item/index"
     }
 }

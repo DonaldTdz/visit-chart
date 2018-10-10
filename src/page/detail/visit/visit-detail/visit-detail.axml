@@ -1,0 +1,19 @@
+<view>
+  <view class="visitImg" onTap="previewImage">
+    <image src="{{host + visit.imgPath}}" mode="aspectFill top" class="orgImage" />
+  </view>
+  <view>
+    <card thumb="{{visit.employeeImg}}" title="{{visit.employeeName + ' ' + visit.signTimeFormat}}" subTitle="{{visit.location}}" footerImg="../../../image/description.svg" footer="{{visit.summDesc}}" onClick="onCardClick" />
+  </view>
+  <view a:if="{{visit.examines.length > 0}}">
+    <list>
+      <view slot="header">烟农考核信息</view>
+      <block a:for="{{visit.examines}}">
+        <list-item >
+          <view>{{item.name}}</view>
+          <view slot="extra">{{item.scoreName}}</view>
+        </list-item>
+      </block>
+    </list>
+  </view>
+</view>

@@ -1,0 +1,51 @@
+<view class="width100">
+  <card title="{{vgDetail.growerInfo.name}}" thumb="../../../image/farmer_GR.png" subTitle="{{vgDetail.growerInfo.unitName}}" arrow={{false}}  />
+  <view class="page-margin">
+    <list>
+      <view slot="header">拜访任务</view>
+      <list-item wrap="{{true}}">
+        <view>{{vgDetail.taskTitle}}</view>
+        <view class="am-list-brief">{{vgDetail.footer}}</view>
+      </list-item>
+    </list>
+  </view>
+  <view class="page-margin">
+    <list>
+      <view slot="header">基本信息</view>
+      <list-item>
+        <view>烟农地址</view>
+        <view class="am-list-brief">{{vgDetail.growerInfo.address}}</view>
+      </list-item>
+      <list-item>
+        <view>联系电话</view>
+        <view slot="extra">{{vgDetail.growerInfo.tel}}</view>
+      </list-item>
+      <list-item>
+        <view>种植面积</view>
+        <view slot="extra">{{vgDetail.growerInfo.plantingArea}}（亩）</view>
+      </list-item>
+    </list>
+  </view>
+  <view class="page-margin page-padding-bottom">
+    <list>
+      <view slot="header">拜访记录（{{(vgDetail.visitNum - vgDetail.completeNum) == 0? "全部完成" : "本任务还差"+(vgDetail.visitNum - vgDetail.completeNum)+"次"}}）</view>
+      <block a:if="{{vgDetail.visitRecords.length == 0}}">
+        <list-item last="true">
+          <view class="nodata">还没有拜访记录</view>
+        </list-item>
+      </block>
+      <block a:for="{{vgDetail.visitRecords}}">
+        <list-item thumb="{{host + item.imgPath}}" key="item-{{index}}" index="{{index}}" onClick="goDetail" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">      {{item.timeFormat}}                       
+          <view class="am-list-brief fsize12">{{item.location}}</view>
+          <view slot="extra" class="fsize12">详细</view>
+        </list-item>
+      </block>
+    </list>
+  </view>
+  <view class="page-margin" a:if="{{isGetPosition && (vgDetail.scheduleStatus == 1 || vgDetail.scheduleStatus == 2)}}">
+    <button type="primary" onTap="goVisit">去拜访</button>
+  </view>
+  <view class="page-margin" a:if="{{!isGetPosition}}">
+    <button type="primary" onTap="getPosition">采集烟农位置</button>
+  </view>
+</view>

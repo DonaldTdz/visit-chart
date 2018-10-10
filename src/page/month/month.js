@@ -164,6 +164,7 @@ Page({
     chart: null,
     selectedIndex: 0,
     values: ['近半年', '近一年'],
+    months:[],
   },
   onLoad() {
    
@@ -232,12 +233,11 @@ Page({
       method: 'Get',
       data: {
         // userId: app.globalData.userInfo.id,
-        startTime: this.data.startDate,
-        endTime: this.data.endDate
+        searchMoth: this.data.selectedIndex,
       },
       dataType: 'json',
       success: (res) => {
-        this.setData({ items: res.data.result })
+        this.setData({ months:res.data.result.tasks, items: res.data.result.items })
         const chartDataNew = this.data.items;
         if (!this.data.chart) {
           ddChart.clear()
@@ -306,6 +306,8 @@ Page({
     this.setData({
       selectedIndex: index,
     });
+    console.log("this.data.selectedIndex");
+    console.log(value);
     this.getDistrictChartData(this.data.chart);
   },
 
@@ -315,4 +317,11 @@ Page({
     //   duration: 1000,
     // });
   },
+  onItemMothClick(index){
+    console.log('index:')
+    console.log(index)
+    dd.redirectTo({
+      url: "../detail/detail?dateString=" + this.data.items[index.index].district + "&status=" + this.data.items[index.index].status,
+    });
+  }
 })

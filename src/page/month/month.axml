@@ -5,3 +5,13 @@
 <view class="container">
   <dd-charts canvasId="ddchart-dom-bar" style="width:200%;" onDraw="onDraw"></dd-charts>
 </view>
+<view a:for="{{months}}" a:for-index="ind" a:for-item="ditem">
+  <list>
+    <view slot="header">{{ditem.taskName}}(完成率：{{ditem.percent}}%)</view>
+    <view a:for="{{items.slice(ind*3,(ind+1)*3)}}" a:for-index="index" a:for-item="item">
+      <list-item key="item-{{index}}" index="{{ind*3+index}}" onClick="onItemMothClick" last="{{index===(items.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.name}}                  
+        <view slot="extra">{{item.num}}</view>
+      </list-item>
+    </view>
+  </list>
+</view>

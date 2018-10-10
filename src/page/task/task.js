@@ -1,82 +1,6 @@
 
 import Dropdown from '../../components/dropdown';
-// const chartDataNew = [{
-//   name: '完成',
-//   task: '备耕',
-//   num: 500
-// }, {
-//     name: '进行中',
-//     task: '备耕',
-//     num: 300
-//   }, {
-//     name: '逾期',
-//     task: '备耕',
-//     num: 30
-//   }, {
-//     name: '完成',
-//     task: '移栽',
-//     num: 550
-//   }, {
-//     name: '进行中',
-//     task: '移栽',
-//     num: 200
-//   }, {
-//     name: '逾期',
-//     task: '移栽',
-//     num: 10
-//   },
-//   {
-//     name: '完成',
-//     task: '田管',
-//     num: 800
-//   }, {
-//     name: '进行中',
-//     task: '田管',
-//     num: 700
-//   }, {
-//     name: '逾期',
-//     task: '田管',
-//     num: 10
-//   },
-//   {
-//     name: '完成',
-//     task: '质保病种害',
-//     num: 800
-//   }, {
-//     name: '进行中',
-//     task: '质保病种害',
-//     num: 700
-//   }, {
-//     name: '逾期',
-//     task: '质保病种害',
-//     num: 10
-//   },
-//   {
-//     name: '完成',
-//     task: '烘烤',
-//     num: 800
-//   }, {
-//     name: '进行中',
-//     task: '烘烤',
-//     num: 700
-//   }, {
-//     name: '逾期',
-//     task: '烘烤',
-//     num: 10
-//   },
-//   {
-//     name: '完成',
-//     task: '分级',
-//     num: 800
-//   }, {
-//     name: '进行中',
-//     task: '分级',
-//     num: 700
-//   }, {
-//     name: '逾期',
-//     task: '分级',
-//     num: 10
-//   }]
+
 
 let app = getApp()
 
@@ -89,6 +13,7 @@ Page({
     startDate: '',
     endDate: '',
     items: [],
+    tasks: [],
     dropdownSelectData: {
       active: false,
       selectedNav: 0,
@@ -147,7 +72,7 @@ Page({
     //dd-charts组件内部会回调此方法，返回图表实例ddChart
     //提示：可以把异步获取数据及渲染图表逻辑放onDraw回调里面
 
-    this.getDistrictChartData(ddChart,F2);
+    this.getDistrictChartData(ddChart, F2);
     /*ddChart.clear()
    
     ddChart.source(chartDataNew, {
@@ -203,7 +128,7 @@ Page({
     ddChart.interval().position('task*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust('stack');
     ddChart.render()*/
   },
-  getDistrictChartData(ddChart,F2) {
+  getDistrictChartData(ddChart, F2) {
     dd.showLoading();
     dd.httpRequest({
       url: app.globalData.host + 'api/services/app/Chart/GetChartByGroupAsync',
@@ -215,9 +140,9 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
-        this.setData({items: res.data.result.items })
+        this.setData({ tasks: res.data.result.tasks, items: res.data.result.items })
         const chartDataNew = this.data.items;
-        if(!this.data.chart){
+        if (!this.data.chart) {
           ddChart.clear()
 
           ddChart.source(chartDataNew, {
@@ -273,7 +198,7 @@ Page({
           ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust('stack');
           ddChart.render()
           this.data.chart = ddChart;
-        }else{
+        } else {
           ddChart.changeData(chartDataNew);
         }
       },
@@ -334,4 +259,13 @@ Page({
       },
     });
   },
+  onItemClick(index) {
+    console.log('index:')
+    console.log(index)
+    dd.redirectTo({
+      url: "../detail/detail?taskId=" + this.data.items[index.index].id + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate +"&status="+this.data.items[index.index].status,
+      // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
+    });
+  }
+
 })
