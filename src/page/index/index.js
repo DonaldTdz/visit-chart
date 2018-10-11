@@ -168,5 +168,10 @@ Page({
     dd.navigateTo({
       url: pageNav.page,
     });
+  },
+  onItemTClick(data){
+    dd.navigateTo({
+      url: "../detail/detail?status=" + this.data.items[data.index].status,
+    });
   }
 })

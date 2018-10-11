@@ -1,43 +1,7 @@
-<!-- <import src="../../components/dropdown/index.axml" />
-<view>
-   <template is="DropdownSelect" data="{{...dropdownSelectData}}"/> 
-</view> -->
-<!-- <view class="section"></view> -->
-<view>
-  <!-- <picker onChange="bindAreaChange" value="{{areaIndex}}" range="{{areaes}}" range-key="name"><view class="row"><view class="row-title">areaes</view><view class="row-extra">当前选择：{{areaes[areaIndex]}}</view></view></picker> -->
-  <!-- <picker onChange="bindAreaChange" value="{{areaIndex}}" range="{{areaes}}" range-key="name">
-    <view class="row">
-      <view class="row-title">areaes</view>
-      <view class="row-extra">当前选择：{{areaes[areaIndex].name}}</view>
-      <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-    </view>
-  </picker> -->
-  <!-- <picker onChange="bindStatusChange" value="{{staIndex}}" range="{{status}}" range-key="name">
-    <view class="row">
-      <view class="row-title">status1</view>
-      <view class="row-extra">当前选择：{{status[staIndex].name}}</view>
-      <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-    </view>
-  </picker>
-  <picker onChange="bindStatusChange" value="{{staIndex}}" range="{{status}}" range-key="name">
-    <view class="row">
-      <view class="row-title">status2</view>
-      <view class="row-extra">当前选择：{{status[staIndex].name}}</view>
-      <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-    </view>
-  </picker>
-  <picker onChange="bindPickerChange" value="{{index}}" range="{{array}}">
-    <view class="row">
-      <view class="row-title">地区选择器</view>
-      <view class="row-extra">当前选择：{{array[index]}}</view>
-      <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-    </view>
-  </picker>
-</view> -->
-
 <view hidden="{{items.length == 0}}" class="page-margin page-padding-bottom">
   <list>
-    <view slot="header">任务列表</view>
+    <!-- <view slot="header">任务列表</view> -->
+    <view slot="header">{{searchStr}}</view>
     <block a:for="{{items}}">
       <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goVisit">{{item.taskName}}({{item.taskTypeName}}) [{{item.areaName}}]                           
         <view class="am-list-brief fsize12">{{item.employeeName}}拜访{{item.growerName}},已完成{{item.completeNum}}次,共{{item.visitNum}}次 </view>

@@ -235,7 +235,7 @@ Page({
     console.log('index:')
     console.log(index)
     dd.redirectTo({
-      url: "../detail/detail?areaCode=" + this.data.items[index.index].areaCode + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status,
+      url: "../detail/detail?areaCode=" + this.data.items[index.index].areaCode + "&district=" + this.data.items[index.index].district+"&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status,
       // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
     });
   }

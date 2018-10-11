@@ -4,40 +4,20 @@ let app = getApp()
 Page({
   ...Dropdown,
   data: {
-    array: ['中国', '美国', '巴西', '日本'],
-    objectArray: [
-      {
-        id: 0,
-        name: '美国',
-      },
-      {
-        id: 1,
-        name: '中国',
-      },
-      {
-        id: 2,
-        name: '巴西',
-      },
-      {
-        id: 3,
-        name: '日本',
-      },
-    ],
     index: 0,
     arrIndex: 0,
     dropdownSelectData: {
       active: false,
       selectedNav: 0,
-      dateString:'',
+      dateString: '',
       areaCode: null,
-      taskType: null,
+      district:'',
       taskId: null,
       startTime: null,
       endTime: null,
       status: null,
-      tstatus: null,
-      pageIndex:0,
-      input: { areaCode: null, taskType: null, taskId: null, taskName: '', startTime: null, endTime: '', status: null, employeeName: '', growerName: '' },
+      pageIndex: 0,
+      searchStr: '',
       listData: [
         {
           nav: '开始日期',
@@ -102,12 +82,14 @@ Page({
     console.log('query:')
     console.info(`visit Page onLoad with query: ${JSON.stringify(query)}`);
     this.data.areaCode = query.areaCode;
+    this.data.district = query.district; 
     this.data.taskId = query.taskId;
     this.data.startTime = query.startTime;
     this.data.endTime = query.endTime;
     this.data.status = query.status;
-    this.data.tstatus = query.tstatus;
     this.data.dateString = query.dateString;
+    var statusName = this.data.status == 1 ? '计划' : (this.data.status == 2 ? '完成' : (this.data.status == 3 ? '进行中' : (this.data.status==0?'逾期':'')));
+    this.data.searchStr = (this.data.startTime != null ? this.data.startTime + '至' + this.data.startTime + '期间' : (this.data.dateString!=null?this.data.dateString + '期间':''))+ (this.data.district != null ? this.data.district+ '的' : '') + statusName+'数据';
     this.getSheduleDetail();
   },
 
@@ -123,7 +105,6 @@ Page({
         startTime: this.data.startTime,
         endTime: this.data.endTime,
         status: this.data.status,
-        tstatus: this.data.tstatus,
         dateString: this.data.dateString,
       },
       dataType: 'json',
@@ -221,11 +202,17 @@ Page({
       pageIndex: 0
     });
   },
-  goVisit(data){
-    dd.redirectTo({
+  onReachBottom() {
+    if (this.data.pageIndex != -1) {
+      // 页面被拉到底部
+      this.getSheduleDetail();
+    }
+  },
+  goVisit(data) {
+    dd.navigateTo({
       // url: "../detail/visit/visit?id=" + this.data.items[data.index].id,
       // url: "../detail/visit/visit?id=" + this.data.items[data.index].id,
       url: "./visit/visit?id=" + this.data.items[data.index].id,
-     });
-   }
+    });
+  }
 })

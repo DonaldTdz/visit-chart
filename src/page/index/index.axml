@@ -7,7 +7,7 @@
 </view>
 <list>
   <block a:for="{{items}}">
-    <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}"  arrow="{{true}}" wrap="{{true}}"   >   
+    <list-item key="item-{{index}}" index="{{index}}"  onClick="onItemTClick" last="{{index === (items.length - 1)}}"  arrow="{{true}}" wrap="{{true}}"   >   
       <view class="{{item.className}}" > {{item.name}} </view>    
       <view slot="extra">    {{item.num}}  </view>
     </list-item>

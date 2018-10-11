@@ -42,10 +42,10 @@
       </block>
     </list>
   </view>
-  <view class="page-margin" a:if="{{isGetPosition && (vgDetail.scheduleStatus == 1 || vgDetail.scheduleStatus == 2)}}">
+  <!-- <view class="page-margin" a:if="{{isGetPosition && (vgDetail.scheduleStatus == 1 || vgDetail.scheduleStatus == 2)}}">
     <button type="primary" onTap="goVisit">去拜访</button>
   </view>
   <view class="page-margin" a:if="{{!isGetPosition}}">
     <button type="primary" onTap="getPosition">采集烟农位置</button>
-  </view>
+  </view> -->
 </view>

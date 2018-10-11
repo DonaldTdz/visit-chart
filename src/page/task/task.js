@@ -262,8 +262,8 @@ Page({
   onItemClick(index) {
     console.log('index:')
     console.log(index)
-    dd.redirectTo({
-      url: "../detail/detail?taskId=" + this.data.items[index.index].id + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate +"&status="+this.data.items[index.index].status,
+    dd.navigateTo({
+      url: "../detail/detail?taskId=" + this.data.items[index.index].id + "&district=" + this.data.items[index.index].district+ "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate +"&status="+this.data.items[index.index].status,
       // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
     });
   }
