@@ -2,16 +2,22 @@
 <view>
   <template is="DropdownSelect" data={{...dropdownSelectData}} />
 </view>
-<view class="container">
-  <dd-charts canvasId="ddchart-dom-bar" onDraw="onDraw"></dd-charts>
+<view a:if="{{items.length > 0}}">
+  <view class="container">
+    <dd-charts canvasId="ddchart-dom-bar" onDraw="onDraw"></dd-charts>
+  </view>
+  <view a:for="{{districts}}" a:for-index="di" a:for-item="ditem">
+    <list>
+      <view slot="header">{{ditem.district}}（完成率：{{ditem.percent}}%）</view>
+      <view a:for="{{items.slice(di*3,(di+1)*3)}}" a:for-index="index" a:for-item="item">
+        <list-item key="item-{{index}}" index="{{di*3+index}}" onClick="onItemDistrictClick" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}"> {{item.name}}                    
+          <view slot="extra">{{item.num}}</view>
+        </list-item>
+      </view>
+    </list>
+  </view>
 </view>
-<view a:for="{{districts}}" a:for-index="di" a:for-item="ditem">
-  <list>
-    <view slot="header">{{ditem.district}}（完成率：{{ditem.percent}}%）</view>
-    <view a:for="{{items.slice(di*3,(di+1)*3)}}" a:for-index="index" a:for-item="item">
-      <list-item key="item-{{index}}" index="{{di*3+index}}" onClick="onItemDistrictClick" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}"> {{item.name}}            
-        <view slot="extra">{{item.num}}</view>
-      </list-item>
-    </view>
-  </list>
+<view class="item page-margin" a:if="{{items.length == 0}}">
+  <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
+  <text style="color:gray; margin-top:10px;">没有数据</text>
 </view>
