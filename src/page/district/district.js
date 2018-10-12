@@ -119,7 +119,7 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
-        this.setData({ districts: res.data.result.districts, items: res.data.result.items })
+        this.setData({ districts: res.data.result.districts, items: res.data.result.items });
         const chartDataNew = this.data.items;
         if(!this.data.chart){
           ddChart.clear()

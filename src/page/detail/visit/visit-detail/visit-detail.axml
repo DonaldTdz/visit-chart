@@ -3,7 +3,7 @@
     <image src="{{host + visit.imgPath}}" mode="aspectFill top" class="orgImage" />
   </view>
   <view>
-    <card thumb="{{visit.employeeImg}}" title="{{visit.employeeName + ' ' + visit.signTimeFormat}}" subTitle="{{visit.location}}" footerImg="../../../image/description.svg" footer="{{visit.summDesc}}" onClick="onCardClick" />
+    <card thumb="{{visit.employeeImg}}" title="{{visit.employeeName + ' ' + visit.signTimeFormat}}" subTitle="{{visit.location}}" footerImg="../../../images/description.svg" footer="{{visit.summDesc}}" onClick="onCardClick" />
   </view>
   <view a:if="{{visit.examines.length > 0}}">
     <list>
