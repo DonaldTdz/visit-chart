@@ -1,5 +1,5 @@
 <view class="width100">
-  <card title="{{vgDetail.growerInfo.name}}" thumb="../../../image/farmer_GR.png" subTitle="{{vgDetail.growerInfo.unitName}}" arrow={{false}}  />
+  <card title="{{vgDetail.growerInfo.name}}" thumb="../../../images/farmer_GR.png" subTitle="{{vgDetail.growerInfo.unitName}}" arrow={{false}}  />
   <view class="page-margin">
     <list>
       <view slot="header">拜访任务</view>

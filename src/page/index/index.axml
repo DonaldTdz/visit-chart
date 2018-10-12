@@ -2,6 +2,7 @@
 <view>
     <card thumb="{{userInfo.avatar}}" title="{{userInfo.name}}" subTitle="{{userInfo.position}}" arrow={{false}} />
 </view>
+<view a:if="{{items.length > 0}}">
 <view class="container">
   <dd-charts canvasId="ddchart-dom-bar" onDraw="onDraw" ></dd-charts>
 </view>
@@ -13,8 +14,9 @@
     </list-item>
   </block>
 </list>
-<view class="item ddcenter page-margin page-padding" a:if="{{items.length == 0}}">
-  <image style="width: 80px; height:80px;" mode="aspectFit" src="../../image/nodata-search.png" />
+</view>
+<view class="item page-margin" a:if="{{items.length == 0}}">
+  <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
   <text style="color:gray; margin-top:10px;">没有数据</text>
 </view>
 <view style="margin-top:10px;">

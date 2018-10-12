@@ -46,6 +46,9 @@ Page({
         success: (res) => {
           //console.log('res', res);
           app.globalData.userInfo = res.data.result;
+          if (app.globalData.userInfo.avatar == '') {
+            app.globalData.userInfo.avatar = '../../images/logo.jpeg';
+          }
           this.setData({ userInfo: app.globalData.userInfo });
           //this.getScheduleSummary();
         },
@@ -69,6 +72,7 @@ Page({
     }
   },
   onLoad() {
+    //this.setData({items:[]});
     this.loginSystem();
   },
   getScheduleSummary() {

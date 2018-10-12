@@ -68,6 +68,7 @@ Page({
     districts: [{ district: '剑阁县', percent: 60 }, { district: '昭化区', percent: 45 }, { district: '旺苍县', percent: 85 }],
   },
   onLoad() {
+    //this.setData({ items: [] });
     this.getNowFormatDate();
   },
   onReady() {

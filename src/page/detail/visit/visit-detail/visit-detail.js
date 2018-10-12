@@ -38,6 +38,9 @@ Page({
       dataType: 'json',
       success: (res) => {
         const result = res.data.result;
+        if (result.employeeImg == '') {
+          result.employeeImg = '../../../../images/logo.jpeg';
+        }
         this.setData({ visit: result });
       },
       fail: function(res) {
