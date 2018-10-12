@@ -6,6 +6,7 @@ Page({
     width: 200,
     height: 200,
     chart: null,
+    showChart: false,
     items: [{ name: '完成', num: 700, percent: 0.7, a: '1', className: 'complete' },
     { name: '进行中', num: 200, percent: 0.2, a: '1', className: 'process' },
     { name: '逾期', num: 100, percent: 0.1, a: '1', className: 'overdue' }],
@@ -50,7 +51,7 @@ Page({
             app.globalData.userInfo.avatar = '../../images/logo.jpeg';
           }
           this.setData({ userInfo: app.globalData.userInfo });
-          //this.getScheduleSummary();
+          this.getScheduleSummary();
         },
         fail: function(res) {
           dd.alert({ content: '获取用户信息异常' });
@@ -68,7 +69,7 @@ Page({
     });
     } else {
       this.setData({ userInfo: app.globalData.userInfo });
-      //this.getScheduleSummary();
+      this.getScheduleSummary();
     }
   },
   onLoad() {
@@ -85,7 +86,14 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
+        //console.log('res', res.data.result);
         this.setData({ items: res.data.result });
+        for (var i in this.data.items){
+          if (this.data.items[i].num > 0){
+            this.setData({ showChart: true});
+            break;
+          }
+        }
       },
       fail: function(res) {
         dd.alert({ content: '获取数据异常' });
