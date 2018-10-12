@@ -89,7 +89,7 @@ Page({
     this.data.status = query.status;
     this.data.dateString = query.dateString;
     var statusName = this.data.status == 1 ? '计划' : (this.data.status == 2 ? '完成' : (this.data.status == 3 ? '进行中' : (this.data.status==0?'逾期':'')));
-    this.data.searchStr = (this.data.startTime != null ? this.data.startTime + '至' + this.data.startTime + '期间' : (this.data.dateString!=null?this.data.dateString + '期间':''))+ (this.data.district != null ? this.data.district+ '的' : '') + statusName+'数据';
+    this.data.searchStr = (this.data.startTime != null ? this.data.startTime + '至' + this.data.startTime + '期间' : (this.data.dateString!=null?this.data.dateString + '期间':''))+ (this.data.district != null ? this.data.district+ '的' : '') + statusName+'信息';
     this.getSheduleDetail();
   },
 
@@ -109,7 +109,6 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
-        // this.setData({ items: res.data.result.items });
         const datas = res.data.result;
         if (datas.length < 15) {
           this.setData({ pageIndex: -1 });

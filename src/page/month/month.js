@@ -165,6 +165,7 @@ Page({
     selectedIndex: 0,
     values: ['近半年', '近一年'],
     months:[],
+    items:[{ id: 0, name: "计划", district: "2018-07", num: 3, status: 1, areaCode: null, timeGroup: null }],//给予默认数据原因，页面if控制的图标才会出发请求数据
   },
   onLoad() {
    
@@ -237,7 +238,7 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
-        this.setData({ months:res.data.result.tasks, items: res.data.result.items })
+        this.setData({ months:res.data.result.tasks, items: res.data.result.items });
         const chartDataNew = this.data.items;
         if (!this.data.chart) {
           ddChart.clear()

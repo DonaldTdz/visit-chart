@@ -13,3 +13,18 @@
   padding-top: 6px;
   padding-bottom: 6px;
 }
+
+
+.item {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  align-items: center;
+  -webkit-align-items: center;
+  text-align: center;
+  padding-bottom: 32rpx;
+  padding-top: 32rpx;
+}

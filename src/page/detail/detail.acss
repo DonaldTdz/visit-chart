@@ -40,9 +40,6 @@
   font-size: 12px;
 }
 
-.ddcenter{
- text-align: center;
-}
 .item {
   display: -webkit-flex;
   display: flex;
@@ -52,4 +49,7 @@
   margin-right: 10px;
   align-items: center;
   -webkit-align-items: center;
+  text-align: center;
+  padding-bottom: 32rpx;
+  padding-top: 32rpx;
 }

@@ -12,7 +12,7 @@ Page({
     chart: null,
     startDate: '',
     endDate: '',
-    items: [],
+    items: [{ id: 16, name: "计划", district: "除草", num: 2, status: 1, areaCode: null, timeGroup: null }],//给予默认数据原因，页面if控制的图标才会出发请求数据
     tasks: [],
     dropdownSelectData: {
       active: false,
@@ -140,7 +140,7 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
-        this.setData({ tasks: res.data.result.tasks, items: res.data.result.items })
+        this.setData({ tasks: res.data.result.tasks, items: res.data.result.items });
         const chartDataNew = this.data.items;
         if (!this.data.chart) {
           ddChart.clear()
