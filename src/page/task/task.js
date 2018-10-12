@@ -45,18 +45,20 @@ Page({
     var seperator1 = "-";
     var year = date.getFullYear();
     var month = date.getMonth() + 1;
-    var strDate = date.getDate();
+    var lastDay = new Date(year, month, 0);
+    var endDay = lastDay.getDate();
+    // var strDate = date.getDate();
     if (month >= 1 && month <= 9) {
       month = "0" + month;
     }
-    if (strDate >= 0 && strDate <= 9) {
-      strDate = "0" + strDate;
+    if (endDay >= 0 && endDay <= 9) {
+      endDay = "0" + endDay;
     }
-    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    var lastdate = year + seperator1 + month + seperator1 + endDay;
     var startDate = year + seperator1 + month + seperator1 + '01';
     this.setData({
       startDate: startDate,
-      endDate: currentdate
+      endDate: lastdate
     });
     let alistData = this.data.dropdownSelectData.listData;
     alistData[0].nav = startDate;
