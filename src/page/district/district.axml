@@ -2,11 +2,15 @@
 <view>
   <template is="DropdownSelect" data={{...dropdownSelectData}} />
 </view>
-<view a:if="{{items.length > 0}}">
+<view class="item page-margin" a:if="{{items.length == 0}}">
+  <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
+  <text style="color:gray; margin-top:10px;">没有数据</text>
+</view>
+<view>
   <view class="container">
     <dd-charts canvasId="ddchart-dom-bar" onDraw="onDraw"></dd-charts>
   </view>
-  <view a:for="{{districts}}" a:for-index="di" a:for-item="ditem">
+  <view  a:if="{{items.length > 0}}" a:for="{{districts}}" a:for-index="di" a:for-item="ditem">
     <list>
       <view slot="header">{{ditem.district}}（完成率：{{ditem.percent}}%）</view>
       <view a:for="{{items.slice(di*3,(di+1)*3)}}" a:for-index="index" a:for-item="item">
@@ -16,8 +20,4 @@
       </view>
     </list>
   </view>
-</view>
-<view class="item page-margin" a:if="{{items.length == 0}}">
-  <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
-  <text style="color:gray; margin-top:10px;">没有数据</text>
 </view>

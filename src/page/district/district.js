@@ -83,10 +83,12 @@ Page({
     if (month >= 1 && month <= 9) {
       month = "0" + month;
     }
-    if (strDate >= 0 && strDate <= 9) {
-      strDate = "0" + strDate;
-    }
-    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    //if (strDate >= 0 && strDate <= 9) {
+    //  strDate = "0" + strDate;
+    //}
+    var lastDay = new Date(year, month, 0);
+    var endDay = lastDay.getDate();
+    var currentdate = year + seperator1 + month + seperator1 + endDay;
     var startDate = year + seperator1 + month + seperator1 + '01';
     this.setData({
       startDate: startDate,
