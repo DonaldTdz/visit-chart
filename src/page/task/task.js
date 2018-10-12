@@ -62,7 +62,7 @@ Page({
     });
     let alistData = this.data.dropdownSelectData.listData;
     alistData[0].nav = startDate;
-    alistData[1].nav = currentdate;
+    alistData[1].nav = lastdate;
     this.setData({
       dropdownSelectData: {
         ...this.data.dropdownSelectData,
