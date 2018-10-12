@@ -15,3 +15,7 @@
     </view>
   </list>
 </view>
+<view class="item ddcenter page-margin page-padding" a:if="{{items.length == 0}}">
+  <image style="width: 80px; height:80px;" mode="aspectFit" src="../../image/nodata-search.png" />
+  <text style="color:gray; margin-top:10px;">没有数据</text>
+</view>
