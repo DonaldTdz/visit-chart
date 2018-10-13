@@ -27,13 +27,15 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
+        dd.hideLoading();
         this.setData({ vgDetail: res.data.result });
         if (res.data.result.growerInfo.longitude && res.data.result.growerInfo.latitude) {
           this.setData({ isGetPosition: true, longitude: res.data.result.growerInfo.longitude, latitude: res.data.result.growerInfo.latitude });
         }
       },
       fail: function(res) {
-        dd.alert({ content: '获取烟农详情异常' });
+        dd.hideLoading();
+        dd.alert({ content: '获取烟农详情异常', buttonText: '确定' });
       },
       complete: function(res) {
         dd.hideLoading();

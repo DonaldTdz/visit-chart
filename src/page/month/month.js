@@ -294,7 +294,7 @@ Page({
         }
       },
       fail: function(res) {
-        dd.alert({ content: '获取数据异常' });
+        dd.alert({ content: '获取数据异常', buttonText: '确定'});
       },
       complete: function(res) {
         dd.hideLoading();

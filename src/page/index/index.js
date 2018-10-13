@@ -45,6 +45,7 @@ Page({
         },
         dataType: 'json',
         success: (res) => {
+          dd.hideLoading();
           //console.log('res', res);
           app.globalData.userInfo = res.data.result;
           if (app.globalData.userInfo.avatar == '') {
@@ -54,7 +55,8 @@ Page({
           this.getScheduleSummary();
         },
         fail: function(res) {
-          dd.alert({ content: '获取用户信息异常' });
+          dd.hideLoading();
+          dd.alert({ content: '获取用户信息异常', buttonText: '确定' });
         },
         complete: function(res) {
           dd.hideLoading();
@@ -63,7 +65,7 @@ Page({
       });
       },
       fail: function(err) {
-        dd.alert({ content: '授权出错' });
+        dd.alert({ content: '授权出错', buttonText: '确定'});
         dd.hideLoading();
       }
     });
@@ -86,6 +88,7 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
+        dd.hideLoading();
         //console.log('res', res.data.result);
         this.setData({ items: res.data.result });
         for (var i in this.data.items){
@@ -96,7 +99,8 @@ Page({
         }
       },
       fail: function(res) {
-        dd.alert({ content: '获取数据异常' });
+        dd.hideLoading();
+        dd.alert({ content: '获取数据异常', buttonText: '确定'});
       },
       complete: function(res) {
         dd.hideLoading();
@@ -116,6 +120,7 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
+        dd.hideLoading();
         this.setData({ items: res.data.result });
         var map = {};
         const chartDataNew = this.data.items;
@@ -168,7 +173,8 @@ Page({
         ddChart.render();
       },
       fail: function(res) {
-        dd.alert({ content: '获取数据异常' });
+        dd.hideLoading();
+        dd.alert({ content: '获取数据异常', buttonText: '确定' });
       },
       complete: function(res) {
         dd.hideLoading();

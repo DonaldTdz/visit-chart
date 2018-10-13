@@ -121,6 +121,7 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
+        dd.hideLoading();
         this.setData({ districts: res.data.result.districts, items: res.data.result.items });
         const chartDataNew = this.data.items;
         if(!this.data.chart){
@@ -174,7 +175,8 @@ Page({
         }
       },
       fail: function(res) {
-        dd.alert({ content: '获取数据异常' });
+        dd.hideLoading();
+        dd.alert({ content: '获取数据异常', buttonText: '确定'});
       },
       complete: function(res) {
         dd.hideLoading();

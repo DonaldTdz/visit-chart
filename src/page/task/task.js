@@ -205,7 +205,7 @@ Page({
         }
       },
       fail: function(res) {
-        dd.alert({ content: '获取数据异常' });
+        dd.alert({ content: '获取数据异常', buttonText: '确定' });
         console.log('error:', res);
       },
       complete: function(res) {

@@ -109,6 +109,7 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
+        dd.hideLoading();
         const datas = res.data.result;
         if (datas.length < 15) {
           this.setData({ pageIndex: -1 });
@@ -125,7 +126,8 @@ Page({
         }
       },
       fail: function(res) {
-        dd.alert({ content: '获取任务列表异常' });
+        dd.hideLoading();
+        dd.alert({ content: '获取任务列表异常', buttonText: '确定' });
       },
       complete: function(res) {
         dd.hideLoading();

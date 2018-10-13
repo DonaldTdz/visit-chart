@@ -37,6 +37,7 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
+        dd.hideLoading();
         const result = res.data.result;
         if (result.employeeImg == '') {
           result.employeeImg = '../../../../images/logo.jpeg';
@@ -44,7 +45,8 @@ Page({
         this.setData({ visit: result });
       },
       fail: function(res) {
-        dd.alert({ content: '获取数据异常' });
+        dd.hideLoading();
+        dd.alert({ content: '获取数据异常', buttonText: '确定' });
       },
       complete: function(res) {
         dd.hideLoading();
