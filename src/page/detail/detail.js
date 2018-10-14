@@ -40,7 +40,7 @@ Page({
     ],
     status: [
       { id: 0, name: '已逾期' },
-      { id: 2, name: '进行中' },
+      { id: 2, name: '待完成' },
       { id: 3, name: '已完成' },
     ],
     areaIndex: 0,
@@ -88,7 +88,7 @@ Page({
     this.data.endTime = query.endTime;
     this.data.status = query.status;
     this.data.dateString = query.dateString;
-    var statusName = this.data.status == 1 ? '计划' : (this.data.status == 2 ? '完成' : (this.data.status == 3 ? '进行中' : (this.data.status==0?'逾期':'')));
+    var statusName = this.data.status == 1 ? '计划' : (this.data.status == 2 ? '完成' : (this.data.status == 3 ? '待完成' : (this.data.status==0?'逾期':'')));
     this.data.searchStr = (this.data.startTime != null ? this.data.startTime + '至' + this.data.startTime + '期间' : (this.data.dateString!=null?this.data.dateString + '期间':''))+ (this.data.district != null ? this.data.district+ '的' : '') + statusName+'信息';
     this.getSheduleDetail();
   },

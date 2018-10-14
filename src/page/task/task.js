@@ -197,7 +197,7 @@ Page({
             }
           });
 
-          ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust('stack');
+          ddChart.interval().position('district*num').color('name', ['#13C2C2', '#9AC2AB','#FE5D4D']).adjust('stack');
           ddChart.render()
           this.data.chart = ddChart;
         } else {

@@ -8,7 +8,7 @@ Page({
     chart: null,
     showChart: false,
     items: [{ name: '完成', num: 700, percent: 0.7, a: '1', className: 'complete' },
-    { name: '进行中', num: 200, percent: 0.2, a: '1', className: 'process' },
+    { name: '待完成', num: 200, percent: 0.2, a: '1', className: 'process' },
     { name: '逾期', num: 100, percent: 0.1, a: '1', className: 'overdue' }],
     arr: {
       onItemTap: 'onGridItemTap',
@@ -149,7 +149,7 @@ Page({
           innerRadius: 0.618
         })
         ddChart.axis(false);
-        ddChart.interval().position('a*percent').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust('stack').style({
+        ddChart.interval().position('a*percent').color('name', ['#13C2C2', '#9AC2AB','#FE5D4D']).adjust('stack').style({
           lineWidth: 1,
           stroke: '#fff',
           lineJoin: 'round',
