@@ -7,9 +7,9 @@ Page({
     height: 200,
     chart: null,
     showChart: false,
-    items: [{ name: '完成', num: 700, percent: 0.7, a: '1', className: 'complete' },
-    { name: '待完成', num: 200, percent: 0.2, a: '1', className: 'process' },
-    { name: '逾期', num: 100, percent: 0.1, a: '1', className: 'overdue' }],
+    items: [{ name: '完成', num: 0, percent: 0, a: '1', className: 'complete' },
+    { name: '待完成', num: 0, percent: 0, a: '1', className: 'process' },
+    { name: '逾期', num: 0, percent: 0., a: '1', className: 'overdue' }],
     arr: {
       onItemTap: 'onGridItemTap',
       list: [
