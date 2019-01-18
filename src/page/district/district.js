@@ -73,7 +73,6 @@ Page({
       { title: '当前任务' },
       { title: '所有任务' },
     ],
-    tabIndex: 1,
   },
   onLoad() {
     //this.setData({ items: [] });
@@ -270,9 +269,9 @@ Page({
       }
     });
   },
-  handleTabClick({ index }) {
-    this.data.tabIndex = index;
-  },
+  // handleTabClick({ index }) {
+  //   this.data.tabIndex = index;
+  // },
   onButtonNavItemTap(e, index) {
     const { selectedNav, active } = this.data.dropdownSelectData;
     let nextactive = !active;

@@ -1,23 +1,64 @@
 <import src="../../components/dropdown/index.axml" />
 <view>
-  <template is="DropdownSelect" data="{{...dropdownSelectData}}"/>
-</view>
-<view class="item  page-margin " a:if="{{items.length == 0}}">
-  <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
-  <text style="color:gray; margin-top:10px;">没有数据</text>
-</view>
-<view class="container">
-  <dd-charts canvasId="ddchart-dom-bar" onDraw="onDraw"></dd-charts>
-</view>
-<view a:if="{{items.length > 0}}">
-  <view a:for="{{tasks}}" a:for-index="ind" a:for-item="ditem">
-    <list>
-      <view slot="header">{{ditem.taskName}}(完成率：{{ditem.percent}}%)</view>
-      <view a:for="{{items.slice(ind*3,(ind+1)*3)}}" a:for-index="index" a:for-item="item">
-        <list-item key="item-{{index}}" index="{{ind*3+index}}" onClick="onItemClick" last="{{index===(items.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.name}}                            
-          <view slot="extra">{{item.num}}</view>
-        </list-item>
-      </view>
-    </list>
-  </view>
+  <tabs tabs="{{tabs}}" onTabClick="handleTabClick" onChange="handleTabChange">
+    <block a:for="{{tabs}}">
+      <tab-content key="{{index}}">
+        <!-- 当前任务 -->
+        <view a:if="{{index==0}}">
+          <view class="item  page-margin " a:if="{{itemsPre.length == 0}}">
+            <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
+            <text style="color:gray; margin-top:10px;">没有数据            
+            </text>
+          </view>
+          <view class="container">
+            <dd-charts canvasId="ddchart-dom-bar2" onDraw="onDrawPre">
+            </dd-charts>
+          </view>
+          <view a:if="{{itemsPre.length > 0}}">
+            <view a:for="{{tasksPre}}" a:for-index="ind" a:for-item="ditem">
+              <list>
+                <view slot="header">{{ditem.taskName}}(完成率：{{ditem.percent}}%)                
+                </view>
+                <view a:for="{{itemsPre.slice(ind*3,(ind+1)*3)}}" a:for-index="index" a:for-item="item">
+                  <list-item key="item-{{index}}" index="{{ind*3+index}}" onClick="onItemClick" last="{{index===(itemsPre.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.name}}                                                          
+                    <view slot="extra">{{item.num}}                    
+                    </view>
+                  </list-item>
+                </view>
+              </list>
+            </view>
+          </view>
+        </view>
+        <!-- 所有任务 -->
+        <view a:if="{{index==1}}">
+          <view>
+            <template is="DropdownSelect" data="{{...dropdownSelectData}}"/>
+          </view>
+          <view class="item  page-margin " a:if="{{items.length == 0}}">
+            <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
+            <text style="color:gray; margin-top:10px;">没有数据            
+            </text>
+          </view>
+          <view class="container">
+            <dd-charts canvasId="ddchart-dom-bar" onDraw="onDraw">
+            </dd-charts>
+          </view>
+          <view a:if="{{items.length > 0}}">
+            <view a:for="{{tasks}}" a:for-index="ind" a:for-item="ditem">
+              <list>
+                <view slot="header">{{ditem.taskName}}(完成率：{{ditem.percent}}%)                
+                </view>
+                <view a:for="{{items.slice(ind*3,(ind+1)*3)}}" a:for-index="index" a:for-item="item">
+                  <list-item key="item-{{index}}" index="{{ind*3+index}}" onClick="onItemClick" last="{{index===(items.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.name}}                                                          
+                    <view slot="extra">{{item.num}}                    
+                    </view>
+                  </list-item>
+                </view>
+              </list>
+            </view>
+          </view>
+        </view>
+      </tab-content>
+    </block>
+  </tabs>
 </view>
