@@ -3,6 +3,8 @@
       "usingComponents":{
         "dd-charts": "dd-charts/es/f2/index",
         "list":"mini-ddui/es/list/index",
-        "list-item":"mini-ddui/es/list/list-item/index"
+        "list-item":"mini-ddui/es/list/list-item/index",
+        "tabs":"mini-ddui/es/tabs/index",
+        "tab-content": "mini-ddui/es/tabs/tab-content/index"
     }
 }

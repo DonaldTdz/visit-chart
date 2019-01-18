@@ -7,6 +7,7 @@ Page({
     width: 200,
     height: 200,
     chart: null,
+    chartPre: null,
     startDate: '',
     endDate: '',
     dropdownSelectData: {
@@ -66,6 +67,13 @@ Page({
       num: 10
     }],
     districts: [{ district: '剑阁县', percent: 60 }, { district: '昭化区', percent: 45 }, { district: '旺苍县', percent: 85 }],
+    itemsPre: [],
+    districtsPre: [],
+    tabs: [
+      { title: '当前任务' },
+      { title: '所有任务' },
+    ],
+    tabIndex: 1,
   },
   onLoad() {
     //this.setData({ items: [] });
@@ -109,7 +117,8 @@ Page({
     //提示：可以把异步获取数据及渲染图表逻辑放onDraw回调里面
     this.getDistrictChartData(ddChart);
   },
-  getDistrictChartData(ddChart){
+
+  getDistrictChartData(ddChart) {
     dd.showLoading();
     dd.httpRequest({
       url: app.globalData.host + 'api/services/app/Chart/GetDistrictChartDataAsync',
@@ -117,14 +126,15 @@ Page({
       data: {
         userId: app.globalData.userInfo.id,
         startDate: this.data.startDate,
-        endDate: this.data.endDate
+        endDate: this.data.endDate,
+        tabIndex: 2
       },
       dataType: 'json',
       success: (res) => {
         dd.hideLoading();
         this.setData({ districts: res.data.result.districts, items: res.data.result.items });
         const chartDataNew = this.data.items;
-        if(!this.data.chart){
+        if (!this.data.chart) {
           ddChart.clear()
           ddChart.source(chartDataNew)
           ddChart.tooltip({
@@ -135,10 +145,10 @@ Page({
               var tooltipItems = obj.items;
               var legendItems = legend.items;
               var map = {};
-              legendItems.map(function(item) {
+              legendItems.map(function (item) {
                 map[item.name] = _.clone(item);
               });
-              tooltipItems.map(function(item) {
+              tooltipItems.map(function (item) {
                 var name = item.name;
                 var value = item.value;
                 if (map[name]) {
@@ -174,14 +184,94 @@ Page({
           ddChart.changeData(chartDataNew);
         }
       },
-      fail: function(res) {
+      fail: function (res) {
         dd.hideLoading();
-        dd.alert({ content: '获取数据异常', buttonText: '确定'});
+        dd.alert({ content: '获取数据异常', buttonText: '确定' });
       },
-      complete: function(res) {
+      complete: function (res) {
         dd.hideLoading();
       }
     });
+  },
+  onDrawPre(ddChart) {
+    this.getDistrictChartDataPre(ddChart);
+  },
+  getDistrictChartDataPre(ddChart) {
+    dd.showLoading();
+    dd.httpRequest({
+      url: app.globalData.host + 'api/services/app/Chart/GetDistrictChartDataAsync',
+      method: 'Get',
+      data: {
+        userId: app.globalData.userInfo.id,
+        tabIndex: 1
+      },
+      dataType: 'json',
+      success: (res) => {
+        dd.hideLoading();
+        this.setData({ districtsPre: res.data.result.districts, itemsPre: res.data.result.items });
+        const chartDataNew = this.data.itemsPre;
+        console.log(this.data.itemsPre);
+        if (!this.data.chartPre) {
+          ddChart.clear()
+          ddChart.source(chartDataNew)
+          ddChart.tooltip({
+
+            custom: true, // 自定义 tooltip 内容框
+            onChange: function onChange(obj) {
+              var legend = chart.get('legendController').legends.top[0];
+              var tooltipItems = obj.items;
+              var legendItems = legend.items;
+              var map = {};
+              legendItems.map(function (item) {
+                map[item.name] = _.clone(item);
+              });
+              tooltipItems.map(function (item) {
+                var name = item.name;
+                var value = item.value;
+                if (map[name]) {
+                  map[name].value = value;
+                }
+              });
+              legend.setItems(_.values(map));
+            },
+            onHide: function onHide() {
+              var legend = chart.get('legendController').legends.top[0];
+              legend.setItems(chart.getLegendItems().country);
+            }
+          })
+          ddChart.axis('date', {
+            label(text, index, total) {
+              const textCfg = {};
+              if (index === 0) {
+                textCfg.textAlign = 'left';
+              }
+              if (index === total - 1) {
+                textCfg.textAlign = 'right';
+              }
+              return textCfg;
+            }
+          })
+          ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust({
+            type: 'dodge',
+            marginRatio: 0.05 // 设置分组间柱子的间距
+          })
+          ddChart.render()
+          this.data.chartPre = ddChart;
+        } else {
+          ddChart.changeData(chartDataNew);
+        }
+      },
+      fail: function (res) {
+        dd.hideLoading();
+        dd.alert({ content: '获取数据异常', buttonText: '确定' });
+      },
+      complete: function (res) {
+        dd.hideLoading();
+      }
+    });
+  },
+  handleTabClick({ index }) {
+    this.data.tabIndex = index;
   },
   onButtonNavItemTap(e, index) {
     const { selectedNav, active } = this.data.dropdownSelectData;
@@ -230,7 +320,7 @@ Page({
       },
     });
   },
-  onItemDistrictClick(index){
+  onItemDistrictClick(index) {
     // console.log('index:')
     // console.log(index)
     // dd.redirectTo({
@@ -240,7 +330,7 @@ Page({
     console.log('index:')
     console.log(index)
     dd.redirectTo({
-      url: "../detail/detail?areaCode=" + this.data.items[index.index].areaCode + "&district=" + this.data.items[index.index].district+"&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status,
+      url: "../detail/detail?areaCode=" + this.data.items[index.index].areaCode + "&district=" + this.data.items[index.index].district + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status,
       // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
     });
   }
