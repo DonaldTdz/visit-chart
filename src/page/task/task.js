@@ -39,6 +39,7 @@ Page({
       { title: '当前任务' },
       { title: '所有任务' },
     ],
+    tabIndex:1
   },
   onLoad() {
     this.getNowFormatDate();
@@ -354,11 +355,16 @@ Page({
       },
     });
   },
+  handleTabClick({ index }) {
+    this.data.tabIndex=index==0?1:2;
+    console.log(index)
+  },
   onItemClick(index) {
     console.log('index:')
     console.log(index)
     dd.navigateTo({
-      url: "../detail/detail?taskId=" + this.data.items[index.index].id + "&district=" + this.data.items[index.index].district + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status,
+      url: "../district-statis/district-statis?taskId=" + this.data.items[index.index].id + "&district=" + this.data.items[index.index].district
+       + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status+"&tabIndex="+this.data.tabIndex,
       // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
     });
   }

@@ -190,7 +190,7 @@ Page({
   },
   onItemTClick(data){
     dd.navigateTo({
-      url: "../detail/detail?status=" + this.data.items[data.index].status,
+      url: "../district-statis/district-statis?status=" + this.data.items[data.index].status+"&tabIndex=1",
     });
   }
 })

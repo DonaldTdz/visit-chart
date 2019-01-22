@@ -6,7 +6,8 @@
     "page/month/month",
     "page/detail/detail",
     "page/detail/visit/visit",
-    "page/detail/visit/visit-detail/visit-detail"
+    "page/detail/visit/visit-detail/visit-detail",
+    "page/district-statis/district-statis"
   ],
   "window": {
     "enableWK": "YES",
