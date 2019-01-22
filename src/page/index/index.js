@@ -55,6 +55,7 @@ Page({
           this.getScheduleSummary();
         },
         fail: function(res) {
+          // dd.alert({content:JSON.stringify(res)})
           dd.hideLoading();
           dd.alert({ content: '获取用户信息异常', buttonText: '确定' });
         },
@@ -100,6 +101,7 @@ Page({
         }
       },
       fail: function(res) {
+        // dd.alert({content:JSON.stringify(res)})
         dd.hideLoading();
         dd.alert({ content: '获取数据异常', buttonText: '确定'});
       },
