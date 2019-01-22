@@ -148,6 +148,7 @@ Page({
         startTime: this.data.startDate,
         endTime: this.data.endDate,
         tabIndex: 2,
+        areaCode: app.globalData.userInfo.areaCode
       },
       dataType: 'json',
       success: (res) => {
@@ -235,6 +236,7 @@ Page({
         startTime: this.data.startDate,
         endTime: this.data.endDate,
         tabIndex: 1,
+        areaCode: app.globalData.userInfo.areaCode
       },
       dataType: 'json',
       success: (res) => {
@@ -364,7 +366,7 @@ Page({
     console.log(index)
     dd.navigateTo({
       url: "../district-statis/district-statis?taskId=" + this.data.items[index.index].id + "&district=" + this.data.items[index.index].district
-       + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status+"&tabIndex="+this.data.tabIndex,
+       + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status+"&tabIndex="+this.data.tabIndex + "&areaCode="+app.globalData.userInfo.areaCode,
       // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
     });
   }

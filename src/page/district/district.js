@@ -126,7 +126,8 @@ Page({
         userId: app.globalData.userInfo.id,
         startDate: this.data.startDate,
         endDate: this.data.endDate,
-        tabIndex: 2
+        tabIndex: 2,
+        areaCode: app.globalData.userInfo.areaCode
       },
       dataType: 'json',
       success: (res) => {
@@ -202,7 +203,8 @@ Page({
       method: 'Get',
       data: {
         userId: app.globalData.userInfo.id,
-        tabIndex: 1
+        tabIndex: 1,
+        areaCode: app.globalData.userInfo.areaCode
       },
       dataType: 'json',
       success: (res) => {
