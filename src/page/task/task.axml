@@ -7,7 +7,7 @@
         <view a:if="{{index==0}}">
           <view class="item  page-margin " a:if="{{itemsPre.length == 0}}">
             <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
-            <text style="color:gray; margin-top:10px;">没有数据            
+            <text style="color:gray; margin-top:10px;">没有当前任务            
             </text>
           </view>
           <view class="container">
@@ -36,7 +36,7 @@
           </view>
           <view class="item  page-margin " a:if="{{items.length == 0}}">
             <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
-            <text style="color:gray; margin-top:10px;">没有数据            
+            <text style="color:gray; margin-top:10px;">没有任务            
             </text>
           </view>
           <view class="container">
