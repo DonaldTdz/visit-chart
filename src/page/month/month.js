@@ -235,6 +235,7 @@ Page({
       data: {
         // userId: app.globalData.userInfo.id,
         searchMoth: this.data.selectedIndex,
+        areaCode: app.globalData.userInfo.areaCode
       },
       dataType: 'json',
       success: (res) => {

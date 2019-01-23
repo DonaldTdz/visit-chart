@@ -86,6 +86,7 @@ Page({
       method: 'Get',
       data: {
         userId: this.data.userInfo.id,
+        areaCode: this.data.userInfo.areaCode
       },
       dataType: 'json',
       success: (res) => {
@@ -119,6 +120,7 @@ Page({
       method: 'Get',
       data: {
         userId: this.data.userInfo.id,
+        areaCode: this.data.userInfo.areaCode
       },
       dataType: 'json',
       success: (res) => {
@@ -192,7 +194,7 @@ Page({
   },
   onItemTClick(data){
     dd.navigateTo({
-      url: "../district-statis/district-statis?status=" + this.data.items[data.index].status+"&tabIndex=1",
+      url: "../district-statis/district-statis?status=" + this.data.items[data.index].status+"&tabIndex=1&areaCode=" + this.data.userInfo.areaCode,
     });
   }
 })
