@@ -73,6 +73,7 @@ Page({
       { title: '当前任务' },
       { title: '所有任务' },
     ],
+    tabIndex: 1,
   },
   onLoad() {
     //this.setData({ items: [] });
@@ -271,9 +272,9 @@ Page({
       }
     });
   },
-  // handleTabClick({ index }) {
-  //   this.data.tabIndex = index;
-  // },
+  handleTabClick({ index }) {
+    this.data.tabIndex = index == 0 ? 1 : 2;
+  },
   onButtonNavItemTap(e, index) {
     const { selectedNav, active } = this.data.dropdownSelectData;
     let nextactive = !active;
@@ -322,16 +323,20 @@ Page({
     });
   },
   onItemDistrictClick(index) {
-    // console.log('index:')
-    // console.log(index)
-    // dd.redirectTo({
-    //   url: "../detail/detail?areaCode=" + this.data.items[index.index].areaCode + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status,
-    // });
-
     console.log('index:')
-    console.log(index)
+    console.log(index);
+    var searchStr = this.data.items[index.index].district + '-' + this.data.items[index.index].name;
     dd.redirectTo({
-      url: "../detail/detail?areaCode=" + this.data.items[index.index].areaCode + "&district=" + this.data.items[index.index].district + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status,
+      url: "../detail/detail?areaCode=" + this.data.items[index.index].areaCode + "&searchStr=" + searchStr + "&district=" + this.data.items[index.index].district
+        + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status + "&tabIndex=" + this.data.tabIndex,
+      // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
+    });
+  },
+  onItemDistrictClickPre(index) {
+    var searchStr = this.data.itemsPre[index.index].district + '-' + this.data.itemsPre[index.index].name;
+    dd.redirectTo({
+      url: "../detail/detail?areaCode=" + this.data.itemsPre[index.index].areaCode + "&searchStr=" + searchStr + "&district=" + this.data.itemsPre[index.index].district
+       + "&status=" + this.data.itemsPre[index.index].status + "&tabIndex=" + this.data.tabIndex,
       // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
     });
   }

@@ -1,6 +1,6 @@
 <import src="/util/grid/index.axml"/>
 <view>
-  <card thumb="{{userInfo.avatar}}" title="{{userInfo.name}}" subTitle="{{userInfo.area + '-' + userInfo.position}}" arrow={{false}} />
+  <card thumb="{{userInfo.avatar}}" title="{{userInfo.name}}" subTitle="{{userInfo.area + '-' + userInfo.position}}" arrow="{{false}}" />
 </view>
 <view a:if="{{items.length > 0}}">
   <view class="container" a:if="{{showChart}}">

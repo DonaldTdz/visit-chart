@@ -20,7 +20,7 @@
                 <view slot="header">{{ditem.district}}（完成率：{{ditem.percent}}%）              
                 </view>
                 <view a:for="{{itemsPre.slice(di*3,(di+1)*3)}}" a:for-index="index" a:for-item="item">
-                  <list-item key="item-{{index}}" index="{{di*3+index}}" onClick="onItemDistrictClick" last="{{index === (itemsPre.length - 1)}}" arrow="{{true}}" wrap="{{true}}"> {{item.name}}                                                
+                  <list-item key="item-{{index}}" index="{{di*3+index}}" onClick="onItemDistrictClickPre" last="{{index === (itemsPre.length - 1)}}" arrow="{{true}}" wrap="{{true}}"> {{item.name}}                                                
                     <view slot="extra">{{item.num}}                  
                     </view>
                   </list-item>

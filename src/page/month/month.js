@@ -323,7 +323,7 @@ Page({
     console.log('index:')
     console.log(index)
     dd.navigateTo({
-      url: "../district-statis/district-statis?dateString=" + this.data.items[index.index].district + "&status=" + this.data.items[index.index].status+"&tabIndex=0",
+      url: "../district-statis/district-statis?dateString=" + this.data.items[index.index].district + "&status=" + this.data.items[index.index].status+"&tabIndex=0"+ "&areaCode=" + app.globalData.userInfo.areaCode,
     });
   }
 })
