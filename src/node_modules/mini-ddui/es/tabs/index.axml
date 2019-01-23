@@ -17,7 +17,7 @@
                   backgroundColor: tabBarBackgroundColor,
                   color: index === current ? tabBarActiveTextColor: tabBarInactiveTextColor,
                   width: tabWidth * 100 + '%',
-                  borderBottomColor: index === current ? tabBarUnderlineColor : '',
+                  borderBottomColor: index === current ? tabBarUnderlineColor : ''
                 }}"
                 class="am-tabs-bar-tab">
                 <view class="am-tabs-bar-title" >

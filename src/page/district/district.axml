@@ -1,6 +1,6 @@
 <import src="../../components/dropdown/index.axml" />
 <view>
-  <tabs tabs="{{tabs}}" onTabClick="handleTabClick">
+  <tabs tabs="{{tabs}}" onTabClick="handleTabClick" >
     <block a:for="{{tabs}}">
       <tab-content key="{{index}}">
         <!-- 当前任务 -->
