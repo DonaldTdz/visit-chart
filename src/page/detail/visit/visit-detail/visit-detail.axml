@@ -1,9 +1,20 @@
 <view>
   <view class="visitImg" onTap="previewImage">
-    <image src="{{host + visit.imgPath}}" mode="aspectFill top" class="orgImage" />
+    <image src="{{host + visit.imgTop}}" mode="aspectFill top" class="orgImage" />
   </view>
-  <view>
-    <card thumb="{{visit.employeeImg}}" title="{{visit.employeeName + ' ' + visit.signTimeFormat}}" subTitle="{{visit.location}}" footerImg="../../../images/description.svg" footer="{{visit.summDesc}}" onClick="onCardClick" />
+  <view a:if="{{visit.employeeName}}" >
+    <card thumb="{{visit.employeeImg}}" title="{{visit.employeeName + ' ' + visit.signTimeFormat}}" subTitle="{{visit.location}}" footerImg="/images/description.svg" footer="{{visit.summDesc}}" onClick="onCardClick" />
+  </view>
+  <view a:if="{{visit.imgPaths.length > 0}}">
+    <list>
+      <view slot="header">签到图片
+      </view>
+      <list-item onClick="previewImages" >
+        <block a:for="{{visit.imgPaths}}">
+          <image index="{{index}}" src="{{host + item}}" class="pimage" mode="scaleToFill" />
+        </block>
+      </list-item>
+    </list>
   </view>
   <view a:if="{{visit.examines.length > 0}}">
     <list>
