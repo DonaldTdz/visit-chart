@@ -35,7 +35,7 @@
         </list-item>
       </block>
       <block a:for="{{vgDetail.visitRecords}}">
-        <list-item thumb="{{host + item.imgPath}}" key="item-{{index}}" index="{{index}}" onClick="goDetail" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">      {{item.timeFormat}}                       
+        <list-item thumb="{{host + item.imgTop}}" key="item-{{index}}" index="{{index}}" onClick="goDetail" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">      {{item.timeFormat}}                       
           <view class="am-list-brief fsize12">{{item.location}}</view>
           <view slot="extra" class="fsize12">详细</view>
         </list-item>

@@ -15,8 +15,18 @@ Page({
     dd.previewImage({
       current: 0,
       urls: [
-        this.data.host + this.data.visit.imgPath
+        this.data.host + this.data.visit.imgTop
       ],
+    });
+  },
+  previewImages() {
+    let imgarr = [];
+    for(var i in this.data.visit.imgPaths){
+      imgarr.push(app.globalData.host + this.data.visit.imgPaths[i]);
+    }
+    dd.previewImage({
+      current: 0,
+      urls: imgarr,
     });
   },
   onCardClick() {
