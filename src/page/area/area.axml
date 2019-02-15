@@ -1,0 +1,20 @@
+<view class="item  page-margin" a:if="{{items.length == 0}}">
+  <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
+  <text style="color:gray; margin-top:10px;">没有数据</text>
+</view>
+<view class="container">
+  <dd-charts canvasId="ddchart-dom-bar-area" style="width:200%;" onDraw="onDraw"></dd-charts>
+</view>
+<view a:if="{{items.length > 0}}">
+  <view >
+    <list>
+      <view slot="header">广元市落实面积情况</view>
+      <view>
+        <list-item onClick="onItemMothClick" index="0" last="{{true}}" arrow="{{true}}" wrap="{{true}}">                                                      
+          <view style="float:left;width:40%;">约定面积:{{expected}}亩</view>
+          <view style="text-alain:left;float:right;width:40%;">落实面积:{{actual}}亩</view>
+        </list-item>
+      </view>
+    </list>
+  </view>
+</view>

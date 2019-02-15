@@ -7,7 +7,9 @@
     "page/detail/detail",
     "page/detail/visit/visit",
     "page/detail/visit/visit-detail/visit-detail",
-    "page/district-statis/district-statis"
+    "page/district-statis/district-statis",
+    "page/area/area",
+    "page/area/district-area/district-area"
   ],
   "window": {
     "enableWK": "YES",

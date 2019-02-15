@@ -25,6 +25,10 @@ Page({
           icon: '/images/column.png',
           title: '按月统计',
           page: '../month/month',
+        }, {
+          icon: '/images/area.png',
+          title: '面积落实',
+          page: '../area/area',
         }
       ],
     }
