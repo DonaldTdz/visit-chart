@@ -1,0 +1,31 @@
+<view class="item  page-margin" a:if="{{items.length == 0}}">
+  <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
+  <text style="color:gray; margin-top:10px;">没有数据  
+  </text>
+</view>
+<view class="container">
+  <dd-charts canvasId="ddchart-dom-bar2" onDraw="onDraw">
+  </dd-charts>
+</view>
+<view a:if="{{details.length > 0}}">
+  <view a:for="{{details}}" a:for-index="index" a:for-item="item">
+    <list>
+      <!-- <view slot="header">{{item.areaName}}
+      </view> -->
+      <view>
+        <list-item key="item-{{index}}" index="{{index}}" onClick="onItemMothClick" last="{{index===(details.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.name}}                                                        
+          <!-- <view style="float:left;width:40%;">{{item.areaName}}
+          </view>
+          <view style="float:right;width:40%;"></view>
+          <view style="float:left;width:20%;">约定:{{item.expected}}亩
+          </view>
+          <view style="text-alain:left;float:right;width:20%;">落实:{{item.actual}}亩
+          </view> -->
+          <view>
+            {{item.areaName}}（约定：{{item.expected}}亩 落实：{{item.actual}}亩）
+          </view>
+        </list-item>
+      </view>
+    </list>
+  </view>
+</view>

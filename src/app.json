@@ -9,7 +9,9 @@
     "page/detail/visit/visit-detail/visit-detail",
     "page/district-statis/district-statis",
     "page/area/area",
-    "page/area/district-area/district-area"
+    "page/area/district-area/district-area",
+    "page/area/comm-area/comm-area",
+    "page/area/grow-list/grow-list"
   ],
   "window": {
     "enableWK": "YES",

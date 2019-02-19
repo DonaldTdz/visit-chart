@@ -1,4 +1,5 @@
 const chartDataNew = []
+const tempDDChart = []
 
 let app = getApp()
 
@@ -13,7 +14,7 @@ Page({
     jgExpected: 0,
     wcActual: 0,
     wcExpected: 0,
-    items: []
+    items: [],
   },
   onLoad() {
 
@@ -22,6 +23,8 @@ Page({
 
   },
   onDraw(ddChart) {
+        const tempDDChart = ddChart;
+    console.log(tempDDChart);
     this.getAreaChar(ddChart);
   },
   getAreaChar(ddChart) {
@@ -34,10 +37,12 @@ Page({
       dataType: 'json',
       success: (res) => {
         dd.hideLoading();
-        this.setData({ zhActual:res.data.result.zhActual,zhExpected:res.data.result.zhExpected,
-        jgActual:res.data.result.jgActual,jgExpected:res.data.result.jgExpected,
-        wcActual:res.data.result.wcActual,wcExpected:res.data.result.wcExpected,
-        items: res.data.result.list });
+        this.setData({
+          zhActual: res.data.result.zhActual, zhExpected: res.data.result.zhExpected,
+          jgActual: res.data.result.jgActual, jgExpected: res.data.result.jgExpected,
+          wcActual: res.data.result.wcActual, wcExpected: res.data.result.wcExpected,
+          items: res.data.result.list
+        });
         // this.setData({ actual:res.data.result.actual,expected:res.data.result.expected,items: res.data.result.list });
         const chartDataNew = this.data.items;
         if (!this.data.chart) {
@@ -98,11 +103,11 @@ Page({
       }
     });
   },
-  onItemMothClick(index) {
-    console.log('index:')
-    console.log(index)
-    // dd.navigateTo({
-    //   url: "../district-area/district-statis?dateString=" + this.data.items[index.index].district + "&status=" + this.data.items[index.index].status+"&tabIndex=0"+ "&areaCode=" + app.globalData.userInfo.areaCode,
-    // });
+  onItemMothClick(id) {
+    dd.navigateTo({
+      url: "../comm-area/comm-area?id=" + id.index,
+    });
+    console.log(tempDDChart);
+    // this.onDraw(this.data.chart);
   }
 })
