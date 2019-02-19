@@ -8,12 +8,11 @@
   </dd-charts>
 </view>
 <view a:if="{{details.length > 0}}">
-  <view a:for="{{details}}" a:for-index="index" a:for-item="item">
     <list>
       <!-- <view slot="header">{{item.areaName}}
       </view> -->
       <view>
-        <list-item key="item-{{index}}" index="{{index}}" onClick="onItemMothClick" last="{{index===(details.length-1)}}" arrow="{{true}}" wrap="{{true}}">                                                      
+        <list-item a:for="{{details}}" key="item-{{index}}" index="{{index}}" onClick="onItemMothClick" last="{{index===(details.length-1)}}" arrow="{{true}}" wrap="{{true}}">                                                      
           <!-- <view style="float:left;width:40%;">{{item.areaName}}
           </view>
           <view style="float:right;width:40%;"></view>
@@ -27,5 +26,4 @@
         </list-item>
       </view>
     </list>
-  </view>
 </view>

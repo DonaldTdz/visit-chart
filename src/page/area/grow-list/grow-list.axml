@@ -7,19 +7,11 @@
   </text>
 </view>
 <view a:if="{{items.length > 0}}">
-  <view a:for="{{items}}" a:for-index="index" a:for-item="item">
     <list>
-      <!-- <view slot="header">{{item.areaName}}
-      </view> -->
+      <view slot="header">烟农列表
+      </view>
       <view>
-        <list-item key="item-{{index}}" index="{{index}}" onClick="onItemMothClick" last="{{index===(items.length-1)}}" arrow="{{true}}" wrap="{{true}}">                                                    
-          <!-- <view style="float:left;width:40%;">{{item.areaName}}
-          </view>
-          <view style="float:right;width:40%;"></view>
-          <view style="float:left;width:20%;">约定:{{item.expected}}亩
-          </view>
-          <view style="text-alain:left;float:right;width:20%;">落实:{{item.actual}}亩
-          </view> -->
+        <list-item a:for="{{items}}" key="item-{{index}}" index="{{index}}" onClick="onItemGrowerClick" last="{{index===(items.length-1)}}" arrow="{{true}}" wrap="{{true}}">
           <view>
             {{item.areaName}}（约定：{{item.expected}}亩 落实：{{item.actual}}亩）
           </view>
