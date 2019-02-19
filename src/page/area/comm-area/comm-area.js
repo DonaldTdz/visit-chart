@@ -10,6 +10,7 @@ Page({
     chart: null,
     items: [],
     details: [],
+    dataType: 0,
     type: null
   },
   onLoad(query) {
@@ -35,13 +36,14 @@ Page({
       dataType: 'json',
       success: (res) => {
         dd.hideLoading();
-        //         this.setData({
-        //   items: [],
-        //   details: []
-        // });
+                this.setData({
+          items: [],
+          details: []
+        });
         this.setData({
           items: res.data.result.list,
-          details: res.data.result.detail
+          details: res.data.result.detail,
+          dataType: res.data.result.type
         });
         console.log(this.data.details);
         // this.setData({ actual:res.data.result.actual,expected:res.data.result.expected,items: res.data.result.list });
@@ -81,7 +83,7 @@ Page({
           });
           ddChart.render()
           this.data.chart = ddChart;
-          this.setData({type: ''});
+          this.setData({ type: '' });
         } else {
           ddChart.changeData(chartDataNew);
         }
@@ -96,11 +98,14 @@ Page({
     });
   },
   onItemMothClick(index) {
-    //     console.log(index.index);
-
-
-    // console.log(this.data.details[index.index].departmentId);
-    this.setData({type: 'children',id:this.data.details[index.index].departmentId});
-    this.onDraw(this.data.chart);
+    if (this.data.dataType === 0) {
+      this.setData({ type: 'children', id: this.data.details[index.index].departmentId });
+      this.onDraw(this.data.chart);
+    } else {
+      dd.navigateTo({
+        url: "../grow-list/grow-list?id=" + this.data.details[index.index].departmentId,
+      });
     }
+
+  }
 })
