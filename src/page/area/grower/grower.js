@@ -9,7 +9,7 @@ Page({
     this.setData({ id: query.id, host: app.globalData.host });
     //this.getVisitGrowerDetail();
     // 页面加载
-    console.info(`visit Page onLoad with query: ${JSON.stringify(query)}`);
+    console.info(`grower Page onLoad with query: ${JSON.stringify(query)}`);
   },
   onShow() {
     // 页面显示
@@ -18,10 +18,10 @@ Page({
   getVisitGrowerDetail() {
     dd.showLoading();
     dd.httpRequest({
-      url: app.globalData.host + 'api/services/app/ScheduleTask/GetDingDingVisitGrowerDetailAsync',
+      url: app.globalData.host + 'api/services/app/ScheduleTask/GetDingDingGrowerDetailAsync',
       method: 'Get',
       data: {
-        scheduleDetailId: this.data.id,
+        id: this.data.id,
       },
       dataType: 'json',
       success: (res) => {
@@ -37,7 +37,7 @@ Page({
   },
   goAreaDetail(data) {
     dd.navigateTo({
-      url: "../area-detail/area-detail?id=" + this.data.vgDetail.visitRecords[data.index].id,
+      url: "../grower-area/grower-area?id=" + this.data.vgDetail.visitRecords[data.index].id,
     });
   },
   onShareAppMessage() {

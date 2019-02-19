@@ -60,10 +60,10 @@ Page({
       }
     });
   },
-
-  onItemTClick(data) {
+  onItemGrowerClick(grower) {
+    //console.info(`grower: ${JSON.stringify(grower)}`);
     dd.navigateTo({
-      // url: "../district-statis/district-statis?status=" + this.data.items[data.index].status+"&tabIndex=1&areaCode=" + this.data.userInfo.areaCode,
+       url: "../grower/grower?id=" + this.data.items[grower.index].departmentId,
     });
   }
 })
