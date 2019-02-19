@@ -13,7 +13,7 @@
       <!-- <view slot="header">{{item.areaName}}
       </view> -->
       <view>
-        <list-item key="item-{{index}}" index="{{index}}" onClick="onItemMothClick" last="{{index===(details.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.name}}                                                        
+        <list-item key="item-{{index}}" index="{{index}}" onClick="onItemMothClick" last="{{index===(details.length-1)}}" arrow="{{true}}" wrap="{{true}}">                                                      
           <!-- <view style="float:left;width:40%;">{{item.areaName}}
           </view>
           <view style="float:right;width:40%;"></view>
