@@ -11,7 +11,8 @@
     "page/area/area",
     "page/area/district-area/district-area",
     "page/area/comm-area/comm-area",
-    "page/area/grow-list/grow-list"
+    "page/area/grower/grower",
+    "page/area/grower-area/grower-area"
   ],
   "window": {
     "enableWK": "YES",

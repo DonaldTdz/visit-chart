@@ -77,7 +77,7 @@ Page({
           // ddChart.interval().position('areaName*area').color('groupName', ['#13C2C2', '#9AC2AB', '#FE5D4D']).adjust('stack');
           ddChart.interval().position('areaName*area').color('groupName').adjust({
             type: 'dodge',
-            marginRatio: 1 // 设置分组间柱子的间距
+            marginRatio: 0.05 // 设置分组间柱子的间距
           });
           ddChart.render()
           this.data.chart = ddChart;

@@ -1,0 +1,39 @@
+<view>
+  <view class="visitImg" onTap="previewImage">
+    <image src="{{host + visit.imgTop}}" mode="aspectFill top" class="orgImage" />
+  </view>
+  <view a:if="{{visit.employeeName}}">
+    <card thumb="{{visit.employeeImg}}" title="{{visit.employeeName + ' ' + visit.signTimeFormat}}" subTitle="{{visit.location}}" footerImg="/image/description.svg" footer="{{visit.summDesc}}" onClick="onCardClick" />
+  </view>
+  <view a:if="{{visit.imgPaths.length > 0}}">
+    <list>
+      <view slot="header">采集图片      
+      </view>
+      <list-item onClick="previewImages">
+        <block a:for="{{visit.imgPaths}}">
+          <image index="{{index}}" src="{{host + item}}" class="pimage" mode="scaleToFill" />
+        </block>
+      </list-item>
+    </list>
+  </view>
+  <view>
+    <list>
+      <view slot="header">采集面积      
+      </view>
+      <list-item>
+        <view>{{visit.area}}
+        </view>
+        <view slot="extra">亩        
+        </view>
+      </list-item>
+    </list>
+    <list>
+      <view slot="header">备注      
+      </view>
+      <list-item>
+        <view>{{visit.desc}}
+        </view>
+      </list-item>
+    </list>
+  </view>
+</view>

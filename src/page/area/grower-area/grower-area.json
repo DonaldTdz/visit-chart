@@ -1,0 +1,8 @@
+{
+  "defaultTitle": "面积落实详情",
+  "usingComponents":{
+    "card":"mini-ddui/es/card/index",
+     "list":"mini-ddui/es/list/index",
+    "list-item":"mini-ddui/es/list/list-item/index"
+  }
+}

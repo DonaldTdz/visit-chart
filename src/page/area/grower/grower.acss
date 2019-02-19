@@ -1,0 +1,21 @@
+.width100{
+  width:100%;
+}
+
+.width20{
+  width:20%;
+}
+
+.fsize12{
+  font-size: 12px;
+}
+
+.fsize14{
+  font-size: 14px;
+}
+
+.nodata{
+  text-align: center;
+  font-size: 14px;
+  color: gray;
+}
