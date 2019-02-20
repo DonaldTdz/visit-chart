@@ -14,14 +14,14 @@ Page({
     wcActual: 0,
     wcExpected: 0,
     items: [],
-    areaCode : 0
+    areaCode: 0
   },
   onLoad() {
 
   },
   onReady() {
     // console.log(app.globalData.userInfo)
-    this.setData({areaCode:app.globalData.userInfo.areaCode });
+    this.setData({ areaCode: app.globalData.userInfo.areaCode });
   },
   onDraw(ddChart) {
     this.getAreaChar(ddChart);
@@ -51,12 +51,13 @@ Page({
           ddChart.tooltip({
             custom: true, // 自定义 tooltip 内容框
             onChange: function onChange(obj) {
-              var legend = chart.get('legendController').legends.top[0];
+              // console.log(obj);
+              var legend = ddChart.get('legendController').legends.top[0];
               var tooltipItems = obj.items;
               var legendItems = legend.items;
               var map = {};
               legendItems.map(function(item) {
-                map[item.name] = _.clone(item);
+                map[item.name] = Object.assign({}, item);
               });
               tooltipItems.map(function(item) {
                 var name = item.name;
@@ -65,28 +66,33 @@ Page({
                   map[name].value = value;
                 }
               });
-              legend.setItems(_.values(map));
+              legend.setItems(Object.values(map));
             },
             onHide: function onHide() {
-              var legend = chart.get('legendController').legends.top[0];
-              legend.setItems(chart.getLegendItems().country);
+                            // console.log(obj);
+              var legend = ddChart.get('legendController').legends.top[0];
+              legend.setItems(ddChart.getLegendItems().country);
             }
-          })
-          ddChart.axis('date', {
-            label(text, index, total) {
-              const textCfg = {};
-              if (index === 0) {
-                textCfg.textAlign = 'left';
-              }
-              if (index === total - 1) {
-                textCfg.textAlign = 'right';
-              }
-              return textCfg;
-            }
-          })
+            // onHide() {
+            //   const legend = ddChart.get('legendController').legends.top[0];
+            //   legend.setItems(ddChart.getLegendItems().country);
+            // }
+          });
+          // ddChart.axis('area', {
+          //   label(text, index, total) {
+          //     const textCfg = {};
+          //     if (index === 0) {
+          //       textCfg.textAlign = 'left';
+          //     }
+          //     if (index === total - 1) {
+          //       textCfg.textAlign = 'right';
+          //     }
+          //     return textCfg;
+          //   }
+          // })
           ddChart.interval().position('areaName*area').color('groupName').adjust({
             type: 'dodge',
-            marginRatio: 0.05 // 设置分组间柱子的间距
+            marginRatio: 1 / 32 // 设置分组间柱子的间距
           })
           ddChart.render()
           this.data.chart = ddChart;
