@@ -11,7 +11,8 @@ Page({
     items: [],
     details: [],
     dataType: 0,
-    type: null
+    type: null,
+    m:1
   },
   onLoad(query) {
         // let sysInfo = app.globalData.sysInfo;
@@ -49,9 +50,16 @@ Page({
         // console.log(this.data.details);
         // this.setData({ actual:res.data.result.actual,expected:res.data.result.expected,items: res.data.result.list });
         const chartDataNew = this.data.items;
-        if (!this.data.chart) {
+        var m = 0.05;
+        if(chartDataNew.length == 2){
+          //this.setData({m:1});
+          m = 1;
+        }
+        if (true) {
           ddChart.clear();
           ddChart.source(chartDataNew);
+         
+          
           // ddChart.source(chartDataNew.reverse(), {
           //   value: {
           //     tickInterval: 750
@@ -121,14 +129,16 @@ Page({
           //   }
           // });
           // ddChart.interval().position('areaName*area').color('groupName', ['#13C2C2', '#9AC2AB', '#FE5D4D']).adjust('stack');
+                   console.log(m);
           ddChart.interval().position('areaName*area').color('groupName').adjust({
             type: 'dodge',
-            marginRatio: 1 / 32 // 设置分组间柱子的间距
+            marginRatio: m // 设置分组间柱子的间距
           });
           ddChart.render()
           this.data.chart = ddChart;
           this.setData({ type: '' });
         } else {
+
           ddChart.changeData(chartDataNew);
         }
       },
