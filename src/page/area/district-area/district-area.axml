@@ -13,7 +13,7 @@
       <view slot="header">昭化区      
       </view>
       <view>
-        <list-item onClick="onItemMothClick" index="0" last="{{false}}" arrow="{{true}}" wrap="{{true}}">
+        <list-item onClick="onItemMothClick" index="1" last="{{false}}" arrow="{{true}}" wrap="{{true}}">
           <view style="float:left;width:40%;">约定面积:{{zhExpected}}亩          
           </view>
           <view style="text-alain:left;float:right;width:40%;">落实面积:{{zhActual}}亩          
@@ -25,7 +25,7 @@
       <view slot="header">剑阁县      
       </view>
       <view>
-        <list-item onClick="onItemMothClick" index="1" last="{{false}}" arrow="{{true}}" wrap="{{true}}">
+        <list-item onClick="onItemMothClick" index="2" last="{{false}}" arrow="{{true}}" wrap="{{true}}">
           <view style="float:left;width:40%;">约定面积:{{jgExpected}}亩          
           </view>
           <view style="text-alain:left;float:right;width:40%;">落实面积:{{jgActual}}亩          
@@ -37,7 +37,7 @@
       <view slot="header">旺苍县      
       </view>
       <view>
-        <list-item onClick="onItemMothClick" index="2" last="{{true}}" arrow="{{true}}" wrap="{{true}}">
+        <list-item onClick="onItemMothClick" index="3" last="{{true}}" arrow="{{true}}" wrap="{{true}}">
           <view style="float:left;width:40%;">约定面积:{{wcExpected}}亩          
           </view>
           <view style="text-alain:left;float:right;width:40%;">落实面积:{{wcActual}}亩          
