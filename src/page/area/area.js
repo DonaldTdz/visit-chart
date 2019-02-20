@@ -73,7 +73,7 @@ Page({
           })
           ddChart.interval().position('areaName*area').color('groupName').adjust({
             type: 'dodge',
-            marginRatio: 1.5 // 设置分组间柱子的间距
+            marginRatio: 0.05 // 设置分组间柱子的间距
           })
           ddChart.render()
           this.data.chart = ddChart;

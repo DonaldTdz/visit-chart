@@ -1,7 +1,7 @@
 {
   "usingComponents":{
     "card":"mini-ddui/es/card/index",
-    "dd-charts": "dd-charts/es/f2/index",
+    "dd-charts": "dd-f2-charts/es/f2/index",
     "list":"mini-ddui/es/list/index",
     "list-item":"mini-ddui/es/list/list-item/index"
   }
