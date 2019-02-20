@@ -129,7 +129,6 @@ Page({
           //   }
           // });
           // ddChart.interval().position('areaName*area').color('groupName', ['#13C2C2', '#9AC2AB', '#FE5D4D']).adjust('stack');
-                   console.log(m);
           ddChart.interval().position('areaName*area').color('groupName').adjust({
             type: 'dodge',
             marginRatio: m // 设置分组间柱子的间距
@@ -138,7 +137,6 @@ Page({
           this.data.chart = ddChart;
           this.setData({ type: '' });
         } else {
-
           ddChart.changeData(chartDataNew);
         }
       },
