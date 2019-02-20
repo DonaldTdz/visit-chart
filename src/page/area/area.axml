@@ -11,8 +11,8 @@
       <view slot="header">广元市落实面积情况</view>
       <view>
         <list-item onClick="onItemMothClick" index="0" last="{{true}}" arrow="{{true}}" wrap="{{true}}">                                                      
-          <view style="float:left;width:40%;">约定面积:{{expected}}亩</view>
-          <view style="text-alain:left;float:right;width:40%;">落实面积:{{actual}}亩</view>
+          <view style="float:left;width:40%;">约定：{{expected}}亩</view>
+          <view style="text-alain:left;float:right;width:40%;">落实：{{actual}}亩</view>
         </list-item>
       </view>
     </list>

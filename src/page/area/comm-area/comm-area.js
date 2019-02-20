@@ -14,6 +14,12 @@ Page({
     type: null
   },
   onLoad(query) {
+        // let sysInfo = app.globalData.sysInfo;
+        // console.log(sysInfo);
+        // this.setData({
+        //     width: sysInfo.screenWidth,
+        //     height: sysInfo.screenHeight,
+        // });
     if (query.id) {
       this.setData({ id: query.id });
     }

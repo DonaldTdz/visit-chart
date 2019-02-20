@@ -4,6 +4,7 @@ App({
     console.log('getSystemInfoSync', dd.getSystemInfoSync());
     console.log('SDKVersion', dd.SDKVersion);
     this.globalData.corpId = options.query.corpId;
+    // this.globalData.sysInfo = dd.getSystemInfoSync();
   },
   onShow() {
     console.log('App Show');
@@ -13,6 +14,7 @@ App({
   },
   globalData: {
     userInfo: { id: '', name: '', position: '', avatar: '' },
+    // sysInfo:{},
     // host: 'http://gy.intcov.com/',
     // host: 'http://hechuangdd.vaiwan.com/',
     //host: 'http://www.scgyyc.com/',

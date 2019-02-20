@@ -7,6 +7,9 @@
   <dd-charts canvasId="ddchart-dom-bar2" onDraw="onDraw">
   </dd-charts>
 </view>
+<!-- <view class="container" style="width:{{width}}px;height:{{height}}px;">
+  <dd-charts canvasId="ddchart-dom-bar2" onDraw="onDraw"></dd-charts>
+</view> -->
 <view a:if="{{details.length > 0}}">
     <list>
       <!-- <view slot="header">{{item.areaName}}

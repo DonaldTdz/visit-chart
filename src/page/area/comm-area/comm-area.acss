@@ -6,13 +6,13 @@
   border-radius: 4px;
 }
 
-.rightSeg{
+/*  .rightSeg{
   text-align: right;
   padding-left: 50px;
   padding-right: 50px;
   padding-top: 6px;
   padding-bottom: 6px;
-}
+}*/
 
 
 .item {
@@ -27,4 +27,4 @@
   text-align: center;
   padding-bottom: 32rpx;
   padding-top: 32rpx;
-}
+} 
