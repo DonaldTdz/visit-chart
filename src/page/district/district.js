@@ -135,19 +135,23 @@ Page({
         dd.hideLoading();
         this.setData({ districts: res.data.result.districts, items: res.data.result.items });
         const chartDataNew = this.data.items;
-        if (!this.data.chart) {
+        console.log('chartDataNew.length:'+chartDataNew.length);
+        var mg = 0.05;
+        if(chartDataNew.length == 3){
+          mg = 1;
+        }
+        if (true) {
           ddChart.clear()
           ddChart.source(chartDataNew)
           ddChart.tooltip({
-
             custom: true, // 自定义 tooltip 内容框
             onChange: function onChange(obj) {
-              var legend = chart.get('legendController').legends.top[0];
+              var legend = ddChart.get('legendController').legends.top[0];
               var tooltipItems = obj.items;
               var legendItems = legend.items;
               var map = {};
               legendItems.map(function (item) {
-                map[item.name] = _.clone(item);
+                map[item.name] = Object.assign({}, item);
               });
               tooltipItems.map(function (item) {
                 var name = item.name;
@@ -156,11 +160,11 @@ Page({
                   map[name].value = value;
                 }
               });
-              legend.setItems(_.values(map));
+              legend.setItems(Object.values(map));
             },
             onHide: function onHide() {
-              var legend = chart.get('legendController').legends.top[0];
-              legend.setItems(chart.getLegendItems().country);
+              var legend = ddChart.get('legendController').legends.top[0];
+              legend.setItems(ddChart.getLegendItems().country);
             }
           })
           ddChart.axis('date', {
@@ -177,12 +181,17 @@ Page({
           })
           ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust({
             type: 'dodge',
-            marginRatio: 0.05 // 设置分组间柱子的间距
+            marginRatio: mg // 设置分组间柱子的间距
           })
           ddChart.render()
           this.data.chart = ddChart;
         } else {
           ddChart.changeData(chartDataNew);
+          ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust({
+            type: 'dodge',
+            marginRatio: mg // 设置分组间柱子的间距
+          })
+          ddChart.render()
         }
       },
       fail: function (res) {
@@ -214,18 +223,21 @@ Page({
         const chartDataNew = this.data.itemsPre;
         console.log(this.data.itemsPre);
         if (!this.data.chartPre) {
+          var mg = 0.05;
+          if(chartDataNew.length == 3){
+            mg = 1;
+          }
           ddChart.clear()
           ddChart.source(chartDataNew)
           ddChart.tooltip({
-
             custom: true, // 自定义 tooltip 内容框
             onChange: function onChange(obj) {
-              var legend = chart.get('legendController').legends.top[0];
+              var legend = ddChart.get('legendController').legends.top[0];
               var tooltipItems = obj.items;
               var legendItems = legend.items;
               var map = {};
               legendItems.map(function (item) {
-                map[item.name] = _.clone(item);
+                map[item.name] = Object.assign({}, item);
               });
               tooltipItems.map(function (item) {
                 var name = item.name;
@@ -234,11 +246,11 @@ Page({
                   map[name].value = value;
                 }
               });
-              legend.setItems(_.values(map));
+              legend.setItems(Object.values(map));
             },
             onHide: function onHide() {
-              var legend = chart.get('legendController').legends.top[0];
-              legend.setItems(chart.getLegendItems().country);
+              var legend = ddChart.get('legendController').legends.top[0];
+              legend.setItems(ddChart.getLegendItems().country);
             }
           })
           ddChart.axis('date', {
@@ -255,7 +267,7 @@ Page({
           })
           ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust({
             type: 'dodge',
-            marginRatio: 0.05 // 设置分组间柱子的间距
+            marginRatio: mg // 设置分组间柱子的间距
           })
           ddChart.render()
           this.data.chartPre = ddChart;
