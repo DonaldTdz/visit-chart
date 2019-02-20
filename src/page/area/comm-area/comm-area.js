@@ -36,10 +36,6 @@ Page({
       dataType: 'json',
       success: (res) => {
         dd.hideLoading();
-        //         this.setData({
-        //   items: [],
-        //   details: []
-        // });
         this.setData({
           items: res.data.result.list,
           details: res.data.result.detail,
@@ -50,14 +46,15 @@ Page({
         const chartDataNew = this.data.items;
         if (!this.data.chart) {
           ddChart.clear()
-          ddChart.source(chartDataNew)
+          // ddChart.source(chartDataNew)
+          ddChart.source(this.data.items.reverse(), {
+            value: {
+              tickInterval: 750
+            }
+          });
           ddChart.coord({
             transposed: true
           })
-          ddChart.axis('areaName', {
-            line: F2.Global._defaultAxis.line,
-            grid: null
-          });
           ddChart.axis('area', {
             line: null,
             grid: F2.Global._defaultAxis.grid,
@@ -74,7 +71,7 @@ Page({
           // ddChart.interval().position('areaName*area').color('groupName', ['#13C2C2', '#9AC2AB', '#FE5D4D']).adjust('stack');
           ddChart.interval().position('areaName*area').color('groupName').adjust({
             type: 'dodge',
-            marginRatio: 0.05 // 设置分组间柱子的间距
+            marginRatio: 1 / 32 // 设置分组间柱子的间距
           });
           ddChart.render()
           this.data.chart = ddChart;
@@ -94,13 +91,16 @@ Page({
   },
   onItemMothClick(index) {
     if (this.data.dataType === 0) {
-      this.setData({ type: 'children', id: this.data.details[index.index].departmentId });
+      if (this.data.details[index.index].areaName == "其他") {
+        this.setData({ type: 'otherArea', id: this.data.details[index.index].departmentId });
+      } else {
+        this.setData({ type: 'children', id: this.data.details[index.index].departmentId });
+      }
       this.onDraw(this.data.chart);
     } else {
       dd.navigateTo({
         url: "../grow-list/grow-list?id=" + this.data.details[index.index].departmentId,
       });
     }
-
   }
 })
