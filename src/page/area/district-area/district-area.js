@@ -1,5 +1,4 @@
 const chartDataNew = []
-const tempDDChart = []
 
 let app = getApp()
 
@@ -15,16 +14,16 @@ Page({
     wcActual: 0,
     wcExpected: 0,
     items: [],
+    areaCode : 0
   },
   onLoad() {
 
   },
   onReady() {
-
+    // console.log(app.globalData.userInfo)
+    this.setData({areaCode:app.globalData.userInfo.areaCode });
   },
   onDraw(ddChart) {
-        const tempDDChart = ddChart;
-    console.log(tempDDChart);
     this.getAreaChar(ddChart);
   },
   getAreaChar(ddChart) {
@@ -33,6 +32,7 @@ Page({
       url: app.globalData.host + 'api/services/app/GrowerAreaRecord/GetDistrictDDChartDataAsync',
       method: 'Get',
       data: {
+        id: app.globalData.userInfo.id
       },
       dataType: 'json',
       success: (res) => {
@@ -107,7 +107,6 @@ Page({
     dd.navigateTo({
       url: "../comm-area/comm-area?id=" + id.index,
     });
-    console.log(tempDDChart);
     // this.onDraw(this.data.chart);
   }
 })

@@ -36,25 +36,20 @@ Page({
       dataType: 'json',
       success: (res) => {
         dd.hideLoading();
-                this.setData({
-          items: [],
-          details: []
-        });
+        //         this.setData({
+        //   items: [],
+        //   details: []
+        // });
         this.setData({
           items: res.data.result.list,
           details: res.data.result.detail,
           dataType: res.data.result.type
         });
-        console.log(this.data.details);
+        // console.log(this.data.details);
         // this.setData({ actual:res.data.result.actual,expected:res.data.result.expected,items: res.data.result.list });
         const chartDataNew = this.data.items;
         if (!this.data.chart) {
           ddChart.clear()
-          // ddChart.source(chartDataNew, {
-          //   population: {
-          //     tickCount: 5
-          //   }
-          // })
           ddChart.source(chartDataNew)
           ddChart.coord({
             transposed: true
