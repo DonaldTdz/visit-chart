@@ -38,42 +38,42 @@ Page({
       dd.showLoading();
       //免登陆
       dd.getAuthCode({
-      success: (res) => {
-      //  console.log('My authCode', res.authCode);
-      dd.httpRequest({
-        url: app.globalData.host + 'api/services/app/Employee/GetDingDingUserByCodeAsync',
-        method: 'Get',
-        data: {
-          code: res.authCode,
-          appId: app.globalData.appId
-        },
-        dataType: 'json',
         success: (res) => {
-          dd.hideLoading();
-          //console.log('res', res);
-          app.globalData.userInfo = res.data.result;
-          if (app.globalData.userInfo.avatar == '') {
-            app.globalData.userInfo.avatar = '../../images/logo.jpeg';
-          }
-          this.setData({ userInfo: app.globalData.userInfo });
-          this.getScheduleSummary();
+          //  console.log('My authCode', res.authCode);
+          dd.httpRequest({
+            url: app.globalData.host + 'api/services/app/Employee/GetDingDingUserByCodeAsync',
+            method: 'Get',
+            data: {
+              code: res.authCode,
+              appId: app.globalData.appId
+            },
+            dataType: 'json',
+            success: (res) => {
+              dd.hideLoading();
+              //console.log('res', res);
+              app.globalData.userInfo = res.data.result;
+              if (app.globalData.userInfo.avatar == '') {
+                app.globalData.userInfo.avatar = '../../images/logo.jpeg';
+              }
+              this.setData({ userInfo: app.globalData.userInfo });
+              this.getScheduleSummary();
+            },
+            fail: function(res) {
+              // dd.alert({content:JSON.stringify(res)})
+              dd.hideLoading();
+              dd.alert({ content: '获取用户信息异常', buttonText: '确定' });
+            },
+            complete: function(res) {
+              dd.hideLoading();
+              //dd.alert({ content: 'complete' });
+            }
+          });
         },
-        fail: function(res) {
-          // dd.alert({content:JSON.stringify(res)})
+        fail: function(err) {
+          dd.alert({ content: '授权出错', buttonText: '确定' });
           dd.hideLoading();
-          dd.alert({ content: '获取用户信息异常', buttonText: '确定' });
-        },
-        complete: function(res) {
-          dd.hideLoading();
-          //dd.alert({ content: 'complete' });
         }
       });
-      },
-      fail: function(err) {
-        dd.alert({ content: '授权出错', buttonText: '确定'});
-        dd.hideLoading();
-      }
-    });
     } else {
       this.setData({ userInfo: app.globalData.userInfo });
       this.getScheduleSummary();
@@ -97,9 +97,9 @@ Page({
         dd.hideLoading();
         //console.log('res', res.data.result);
         this.setData({ items: res.data.result });
-        for (var i in this.data.items){
-          if (this.data.items[i].num > 0){
-            this.setData({ showChart: true});
+        for (var i in this.data.items) {
+          if (this.data.items[i].num > 0) {
+            this.setData({ showChart: true });
             break;
           }
         }
@@ -107,7 +107,7 @@ Page({
       fail: function(res) {
         // dd.alert({content:JSON.stringify(res)})
         dd.hideLoading();
-        dd.alert({ content: '获取数据异常', buttonText: '确定'});
+        dd.alert({ content: '获取数据异常', buttonText: '确定' });
       },
       complete: function(res) {
         dd.hideLoading();
@@ -157,7 +157,7 @@ Page({
           innerRadius: 0.618
         })
         ddChart.axis(false);
-        ddChart.interval().position('a*percent').color('name', ['#13C2C2', '#9AC2AB','#FE5D4D']).adjust('stack').style({
+        ddChart.interval().position('a*percent').color('name', ['#13C2C2', '#9AC2AB', '#FE5D4D']).adjust('stack').style({
           lineWidth: 1,
           stroke: '#fff',
           lineJoin: 'round',
@@ -192,13 +192,25 @@ Page({
   onGridItemTap(e) {
     const curIndex = e.currentTarget.dataset.index;
     const pageNav = this.data.arr.list[curIndex];
-    dd.navigateTo({
-      url: pageNav.page,
-    });
+    if (curIndex == 3) {
+      if (app.globalData.userInfo.areaCode == 4) {
+        dd.navigateTo({
+          url: pageNav.page,
+        });
+      } else if (app.globalData.userInfo.areaCode != 0) {
+        dd.navigateTo({
+          url: "../area/district-area/district-area",
+        });
+      }
+    } else {
+      dd.navigateTo({
+        url: pageNav.page,
+      });
+    }
   },
-  onItemTClick(data){
+  onItemTClick(data) {
     dd.navigateTo({
-      url: "../district-statis/district-statis?status=" + this.data.items[data.index].status+"&tabIndex=1&areaCode=" + this.data.userInfo.areaCode,
+      url: "../district-statis/district-statis?status=" + this.data.items[data.index].status + "&tabIndex=1&areaCode=" + this.data.userInfo.areaCode,
     });
   }
 })
