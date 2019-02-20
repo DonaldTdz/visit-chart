@@ -8,7 +8,7 @@
 <view a:if="{{items.length > 0}}">
   <view >
     <list>
-      <view slot="header">广元市落实面积情况</view>
+      <view slot="header">广元市</view>
       <view>
         <list-item onClick="onItemMothClick" index="0" last="{{true}}" arrow="{{true}}" wrap="{{true}}">                                                      
           <view style="float:left;width:40%;">约定：{{expected}}亩</view>
