@@ -190,7 +190,7 @@ Page({
               var legendItems = legend.items;
               var map = {};
               legendItems.map(function (item) {
-                map[item.name] = _.clone(item);
+                map[item.name] = Object.assign({}, item);
               });
               tooltipItems.map(function (item) {
                 var name = item.name;
@@ -199,7 +199,7 @@ Page({
                   map[name].value = value;
                 }
               });
-              legend.setItems(_.values(map));
+              legend.setItems(Object.values(map));
             },
             onHide: function onHide() {
               var legend = ddChart.get('legendController').legends.top[0];
@@ -277,7 +277,7 @@ Page({
               var legendItems = legend.items;
               var map = {};
               legendItems.map(function (item) {
-                map[item.name] = _.clone(item);
+                map[item.name] = Object.assign({}, item);//_.clone(item);
               });
               tooltipItems.map(function (item) {
                 var name = item.name;
@@ -286,7 +286,7 @@ Page({
                   map[name].value = value;
                 }
               });
-              legend.setItems(_.values(map));
+              legend.setItems(Object.values(map));
             },
             onHide: function onHide() {
               var legend = ddChart.get('legendController').legends.top[0];
