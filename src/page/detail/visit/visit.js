@@ -42,6 +42,11 @@ Page({
       }
     });
   },
+  goAreaDetail(data) {
+    dd.navigateTo({
+      url: "../../area/grower-area/grower-area?id=" + this.data.vgDetail.visitRecords[data.index].id,
+    });
+  },
   goDetail(data) {
     dd.navigateTo({
       url: "./visit-detail/visit-detail?id=" + this.data.vgDetail.visitRecords[data.index].id,

@@ -21,12 +21,18 @@
         <view slot="extra">{{vgDetail.growerInfo.tel}}</view>
       </list-item>
       <list-item>
-        <view>种植面积</view>
+        <view>约定种植面积</view>
         <view slot="extra">{{vgDetail.growerInfo.plantingArea}}（亩）</view>
+      </list-item>
+       <list-item a:if="{{vgDetail.growerInfo.actualArea}}">
+        <view>落实面积
+        </view>
+        <view slot="extra">{{vgDetail.growerInfo.actualArea}}亩
+        </view>
       </list-item>
     </list>
   </view>
-  <view class="page-margin page-padding-bottom">
+  <view class="page-margin page-padding-bottom" a:if="{{vgDetail.taskType != 5}}" >
     <list>
       <view slot="header">拜访记录（{{(vgDetail.visitNum - vgDetail.completeNum) == 0? "全部完成" : "本任务还差"+(vgDetail.visitNum - vgDetail.completeNum)+"次"}}）</view>
       <block a:if="{{vgDetail.visitRecords.length == 0}}">
@@ -42,10 +48,24 @@
       </block>
     </list>
   </view>
-  <!-- <view class="page-margin" a:if="{{isGetPosition && (vgDetail.scheduleStatus == 1 || vgDetail.scheduleStatus == 2)}}">
-    <button type="primary" onTap="goVisit">去拜访</button>
+    <view class="page-margin page-padding-bottom" a:if="{{vgDetail.taskType == 5}}" >
+    <list>
+      <view slot="header">面积落实记录
+      </view>
+      <block a:if="{{vgDetail.visitRecords.length == 0}}">
+        <list-item last="true">
+          <view class="nodata">当前任务还没有记录，点击新增采集
+          </view>
+        </list-item>
+      </block>
+      <block a:for="{{vgDetail.visitRecords}}">
+        <list-item thumb="{{host + item.imgTop}}" key="item-{{index}}" index="{{index}}" onClick="goAreaDetail" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">{{item.timeFormat}}                       
+          <view class="am-list-brief fsize12">{{item.location}}
+          </view>
+          <view slot="extra" class="fsize12">{{item.area}}亩
+          </view>
+        </list-item>
+      </block>
+    </list>
   </view>
-  <view class="page-margin" a:if="{{!isGetPosition}}">
-    <button type="primary" onTap="getPosition">采集烟农位置</button>
-  </view> -->
 </view>
