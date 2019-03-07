@@ -89,6 +89,7 @@ Page({
         const chartDataNew = this.data.items;
         if (!this.data.chart) {
           ddChart.clear()
+          this.addShape();
           ddChart.source(chartDataNew)
           ddChart.tooltip({
             custom: true, // 自定义 tooltip 内容框
