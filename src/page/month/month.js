@@ -1,81 +1,82 @@
+import F2 from '@antv/my-f2';
 
 const chartDataNew = [{
   name: '完成',
   month: '2018-01',
   num: 500
 }, {
-    name: '进行中',
-    month: '2018-01',
-    num: 300
-  }, {
-    name: '逾期',
-    month: '2018-01',
-    num: 30
-  }, {
-    name: '完成',
-    month: '2018-02',
-    num: 550
-  }, {
-    name: '进行中',
-    month: '2018-02',
-    num: 200
-  }, {
-    name: '逾期',
-    month: '2018-02',
-    num: 10
-  },
-  {
-    name: '完成',
-    month: '2018-03',
-    num: 800
-  }, {
-    name: '进行中',
-    month: '2018-03',
-    num: 700
-  }, {
-    name: '逾期',
-    month: '2018-03',
-    num: 10
-  },
-  {
-    name: '完成',
-    month: '2018-04',
-    num: 800
-  }, {
-    name: '进行中',
-    month: '2018-04',
-    num: 700
-  }, {
-    name: '逾期',
-    month: '2018-04',
-    num: 10
-  },
-  {
-    name: '完成',
-    month: '2018-05',
-    num: 800
-  }, {
-    name: '进行中',
-    month: '2018-05',
-    num: 700
-  }, {
-    name: '逾期',
-    month: '2018-05',
-    num: 10
-  },
-  {
-    name: '完成',
-    month: '2018-06',
-    num: 800
-  }, {
-    name: '进行中',
-    month: '2018-06',
-    num: 700
-  }, {
-    name: '逾期',
-    month: '2018-06',
-    num: 10
-  }, 
+  name: '进行中',
+  month: '2018-01',
+  num: 300
+}, {
+  name: '逾期',
+  month: '2018-01',
+  num: 30
+}, {
+  name: '完成',
+  month: '2018-02',
+  num: 550
+}, {
+  name: '进行中',
+  month: '2018-02',
+  num: 200
+}, {
+  name: '逾期',
+  month: '2018-02',
+  num: 10
+},
+{
+  name: '完成',
+  month: '2018-03',
+  num: 800
+}, {
+  name: '进行中',
+  month: '2018-03',
+  num: 700
+}, {
+  name: '逾期',
+  month: '2018-03',
+  num: 10
+},
+{
+  name: '完成',
+  month: '2018-04',
+  num: 800
+}, {
+  name: '进行中',
+  month: '2018-04',
+  num: 700
+}, {
+  name: '逾期',
+  month: '2018-04',
+  num: 10
+},
+{
+  name: '完成',
+  month: '2018-05',
+  num: 800
+}, {
+  name: '进行中',
+  month: '2018-05',
+  num: 700
+}, {
+  name: '逾期',
+  month: '2018-05',
+  num: 10
+},
+{
+  name: '完成',
+  month: '2018-06',
+  num: 800
+}, {
+  name: '进行中',
+  month: '2018-06',
+  num: 700
+}, {
+  name: '逾期',
+  month: '2018-06',
+  num: 10
+},
   /*{
     name: '完成',
     month: '2018-07',
@@ -153,7 +154,7 @@ const chartDataNew = [{
     month: '2018-12',
     num: 10
   }*/
-  ]
+]
 
 let app = getApp()
 
@@ -164,14 +165,47 @@ Page({
     chart: null,
     selectedIndex: 0,
     values: ['近半年', '近一年'],
-    months:[],
-    items:[{ id: 0, name: "计划", district: "2018-07", num: 3, status: 1, areaCode: null, timeGroup: null }],//给予默认数据原因，页面if控制的图标才会出发请求数据
+    months: [],
+    items: [{ id: 0, name: "计划", district: "2018-07", num: 3, status: 1, areaCode: null, timeGroup: null }],//给予默认数据原因，页面if控制的图标才会出发请求数据
   },
   onLoad() {
-   
+
   },
   onReady() {
 
+  },
+  addShape() {
+    var Shape = F2.Shape;
+    var Util = F2.Util;
+    Shape.registerShape('interval', 'text', {
+      draw: function draw(cfg, container) {
+        var points = this.parsePoints(cfg.points);
+        var style = {
+          fill: cfg.color,
+          z: true // 需要闭合
+        };
+        container.addShape('rect', {
+          attrs: Util.mix({
+            x: points[1].x,
+            y: points[1].y,
+            width: points[2].x - points[1].x,
+            height: points[0].y - points[1].y
+          }, style)
+        });
+
+        var origin = cfg.origin._origin; // 获取对应的原始数据
+        return container.addShape('text', {
+          attrs: {
+            x: (points[1].x + points[2].x) / 2,
+            y: (points[0].y + points[1].y) / 2,
+            text: origin.num,
+            fill: '#fff',
+            textAlign: 'center',
+            textBaseline: 'middle'
+          }
+        });
+      }
+    });
   },
   onDraw(ddChart) {
     //dd-charts组件内部会回调此方法，返回图表实例ddChart
@@ -179,51 +213,51 @@ Page({
 
     this.getDistrictChartData(ddChart);
 
-  //   ddChart.clear()
-  //   ddChart.source(chartDataNew, {
-  //     sales: {
-  //       tickCount: 5
-  //     }
-  //   })
-  //   ddChart.tooltip(false)
-  //   ddChart.axis('date', {
-  //     label(text, index, total) {
-  //       const textCfg = {};
-  //       if (index === 0) {
-  //         textCfg.textAlign = 'left';
-  //       }
-  //       if (index === total - 1) {
-  //         textCfg.textAlign = 'right';
-  //       }
-  //       return textCfg;
-  //     }
-  //   })
-  //   ddChart.tooltip({
-  //     custom: true, // 自定义 tooltip 内容框
-  //     onChange: function onChange(obj) {
-  //       var legend = ddChart.get('legendController').legends.top[0];
-  //       var tooltipItems = obj.items;
-  //       var legendItems = legend.items;
-  //       var map = {};
-  //       legendItems.map(function(item) {
-  //         map[item.name] = _.clone(item);
-  //       });
-  //       tooltipItems.map(function(item) {
-  //         var name = item.name;
-  //         var value = item.value;
-  //         if (map[name]) {
-  //           map[name].value = value;
-  //         }
-  //       });
-  //       legend.setItems(_.values(map));
-  //     },
-  //     onHide: function onHide() {
-  //       var legend = ddChart.get('legendController').legends.top[0];
-  //       legend.setItems(ddChart.getLegendItems().country);
-  //     }
-  //   });
-  //   ddChart.interval().position('month*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust('stack');
-  //   ddChart.render()
+    //   ddChart.clear()
+    //   ddChart.source(chartDataNew, {
+    //     sales: {
+    //       tickCount: 5
+    //     }
+    //   })
+    //   ddChart.tooltip(false)
+    //   ddChart.axis('date', {
+    //     label(text, index, total) {
+    //       const textCfg = {};
+    //       if (index === 0) {
+    //         textCfg.textAlign = 'left';
+    //       }
+    //       if (index === total - 1) {
+    //         textCfg.textAlign = 'right';
+    //       }
+    //       return textCfg;
+    //     }
+    //   })
+    //   ddChart.tooltip({
+    //     custom: true, // 自定义 tooltip 内容框
+    //     onChange: function onChange(obj) {
+    //       var legend = ddChart.get('legendController').legends.top[0];
+    //       var tooltipItems = obj.items;
+    //       var legendItems = legend.items;
+    //       var map = {};
+    //       legendItems.map(function(item) {
+    //         map[item.name] = _.clone(item);
+    //       });
+    //       tooltipItems.map(function(item) {
+    //         var name = item.name;
+    //         var value = item.value;
+    //         if (map[name]) {
+    //           map[name].value = value;
+    //         }
+    //       });
+    //       legend.setItems(_.values(map));
+    //     },
+    //     onHide: function onHide() {
+    //       var legend = ddChart.get('legendController').legends.top[0];
+    //       legend.setItems(ddChart.getLegendItems().country);
+    //     }
+    //   });
+    //   ddChart.interval().position('month*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust('stack');
+    //   ddChart.render()
   },
 
   getDistrictChartData(ddChart) {
@@ -239,10 +273,11 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
-        this.setData({ months:res.data.result.tasks, items: res.data.result.items });
+        this.setData({ months: res.data.result.tasks, items: res.data.result.items });
         const chartDataNew = this.data.items;
         if (!this.data.chart) {
           ddChart.clear()
+          this.addShape();
           ddChart.source(chartDataNew, {
             sales: {
               tickCount: 5
@@ -264,7 +299,7 @@ Page({
           ddChart.tooltip({
             custom: true, // 自定义 tooltip 内容框
             onChange: function onChange(obj) {
-              var legend = ddChart.get('legendController').legends.top[0];
+              /*var legend = ddChart.get('legendController').legends.top[0];
               var tooltipItems = obj.items;
               var legendItems = legend.items;
               var map = {};
@@ -278,30 +313,30 @@ Page({
                   map[name].value = value;
                 }
               });
-              legend.setItems(Object.values(map));
+              legend.setItems(Object.values(map));*/
             },
             onHide: function onHide() {
-              var legend = ddChart.get('legendController').legends.top[0];
-              legend.setItems(ddChart.getLegendItems().country);
+              /*var legend = ddChart.get('legendController').legends.top[0];
+              legend.setItems(ddChart.getLegendItems().country);*/
             }
           });
-          ddChart.interval().position('district*num').color('name', ['#13C2C2','#9AC2AB', '#FE5D4D']).adjust('stack');
+          ddChart.interval().position('district*num').color('name', ['#13C2C2', '#9AC2AB', '#FE5D4D']).shape('text').adjust('stack');
           ddChart.render();
           this.data.chart = ddChart;
-          
-        }else{
+
+        } else {
           ddChart.changeData(chartDataNew);
-          
+
         }
       },
       fail: function(res) {
-        dd.alert({ content: '获取数据异常', buttonText: '确定'});
+        dd.alert({ content: '获取数据异常', buttonText: '确定' });
       },
       complete: function(res) {
         dd.hideLoading();
       }
-      
-      });
+
+    });
   },
 
   handleChange: function({ index, value }) {
@@ -319,11 +354,11 @@ Page({
     //   duration: 1000,
     // });
   },
-  onItemMothClick(index){
+  onItemMothClick(index) {
     console.log('index:')
     console.log(index)
     dd.navigateTo({
-      url: "../district-statis/district-statis?dateString=" + this.data.items[index.index].district + "&status=" + this.data.items[index.index].status+"&tabIndex=0"+ "&areaCode=" + app.globalData.userInfo.areaCode,
+      url: "../district-statis/district-statis?dateString=" + this.data.items[index.index].district + "&status=" + this.data.items[index.index].status + "&tabIndex=0" + "&areaCode=" + app.globalData.userInfo.areaCode,
     });
   }
 })

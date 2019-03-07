@@ -1,4 +1,5 @@
 import Dropdown from '../../components/dropdown';
+import F2 from '@antv/my-f2';
 let app = getApp()
 
 Page({
@@ -82,6 +83,47 @@ Page({
   onReady() {
 
   },
+  addShape() {
+    var Shape = F2.Shape;
+    var Util = F2.Util;
+    Shape.registerShape('interval', 'text', {
+      draw: function draw(cfg, container) {
+        var points = this.parsePoints(cfg.points);
+        // points 顶点的顺序
+        // 1 ---- 2
+        // |      |
+        // 0 ---- 3
+        var style = Util.mix({
+          fill: cfg.color,
+          z: true // 需要闭合
+        }, cfg.style);
+        var intervalShape = container.addShape('rect', {
+          attrs: Util.mix({
+            x: points[1].x,
+            y: points[1].y,
+            width: points[2].x - points[1].x,
+            height: points[0].y - points[1].y
+          }, style)
+        });
+
+        var origin = cfg.origin._origin; // 获取对应的原始数据记录
+        var textShape = container.addShape('text', {
+          zIndex: 1,
+          attrs: {
+            x: (points[1].x + points[2].x) / 2,
+            y: points[1].y - 5, // 往上偏移 5 像素
+            text: origin['num'],
+            fill: '#808080',
+            textAlign: 'center',
+            textBaseline: 'bottom',
+            fontSize: 10 // 字体大小
+          }
+        });
+        container.sort();
+        return [intervalShape, textShape];
+      }
+    });
+  },
   getNowFormatDate() {
     var date = new Date();
     var seperator1 = "-";
@@ -135,13 +177,14 @@ Page({
         dd.hideLoading();
         this.setData({ districts: res.data.result.districts, items: res.data.result.items });
         const chartDataNew = this.data.items;
-        console.log('chartDataNew.length:'+chartDataNew.length);
+        console.log('chartDataNew.length:' + chartDataNew.length);
         var mg = 0.05;
-        if(chartDataNew.length == 3){
+        if (chartDataNew.length == 3) {
           mg = 1;
         }
         if (true) {
           ddChart.clear()
+          this.addShape();
           ddChart.source(chartDataNew)
           ddChart.tooltip({
             custom: true, // 自定义 tooltip 内容框
@@ -150,10 +193,10 @@ Page({
               var tooltipItems = obj.items;
               var legendItems = legend.items;
               var map = {};
-              legendItems.map(function (item) {
+              legendItems.map(function(item) {
                 map[item.name] = Object.assign({}, item);
               });
-              tooltipItems.map(function (item) {
+              tooltipItems.map(function(item) {
                 var name = item.name;
                 var value = item.value;
                 if (map[name]) {
@@ -179,7 +222,7 @@ Page({
               return textCfg;
             }
           })
-          ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust({
+          ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).shape('text').adjust({
             type: 'dodge',
             marginRatio: mg // 设置分组间柱子的间距
           })
@@ -187,18 +230,18 @@ Page({
           this.data.chart = ddChart;
         } else {
           ddChart.changeData(chartDataNew);
-          ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust({
+          ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).shape('text').adjust({
             type: 'dodge',
             marginRatio: mg // 设置分组间柱子的间距
           })
           ddChart.render()
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         dd.hideLoading();
         dd.alert({ content: '获取数据异常', buttonText: '确定' });
       },
-      complete: function (res) {
+      complete: function(res) {
         dd.hideLoading();
       }
     });
@@ -224,11 +267,12 @@ Page({
         console.log(this.data.itemsPre);
         if (!this.data.chartPre) {
           var mg = 0.05;
-          if(chartDataNew.length == 3){
+          if (chartDataNew.length == 3) {
             mg = 1;
           }
           ddChart.clear()
-          ddChart.source(chartDataNew)
+          this.addShape();
+          ddChart.source(chartDataNew);
           ddChart.tooltip({
             custom: true, // 自定义 tooltip 内容框
             onChange: function onChange(obj) {
@@ -236,10 +280,10 @@ Page({
               var tooltipItems = obj.items;
               var legendItems = legend.items;
               var map = {};
-              legendItems.map(function (item) {
+              legendItems.map(function(item) {
                 map[item.name] = Object.assign({}, item);
               });
-              tooltipItems.map(function (item) {
+              tooltipItems.map(function(item) {
                 var name = item.name;
                 var value = item.value;
                 if (map[name]) {
@@ -265,7 +309,7 @@ Page({
               return textCfg;
             }
           })
-          ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust({
+          ddChart.interval().position('district*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).shape('text').adjust({
             type: 'dodge',
             marginRatio: mg // 设置分组间柱子的间距
           })
@@ -275,11 +319,11 @@ Page({
           ddChart.changeData(chartDataNew);
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         dd.hideLoading();
         dd.alert({ content: '获取数据异常', buttonText: '确定' });
       },
-      complete: function (res) {
+      complete: function(res) {
         dd.hideLoading();
       }
     });
@@ -348,7 +392,7 @@ Page({
     var searchStr = this.data.itemsPre[index.index].district + '-' + this.data.itemsPre[index.index].name;
     dd.navigateTo({
       url: "../detail/detail?areaCode=" + this.data.itemsPre[index.index].areaCode + "&searchStr=" + searchStr + "&district=" + this.data.itemsPre[index.index].district
-       + "&status=" + this.data.itemsPre[index.index].status + "&tabIndex=" + this.data.tabIndex,
+        + "&status=" + this.data.itemsPre[index.index].status + "&tabIndex=" + this.data.tabIndex,
       // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
     });
   }

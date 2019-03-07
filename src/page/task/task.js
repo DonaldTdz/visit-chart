@@ -1,6 +1,6 @@
 
 import Dropdown from '../../components/dropdown';
-
+import F2 from '@antv/my-f2';
 
 let app = getApp()
 
@@ -47,6 +47,90 @@ Page({
   onReady() {
 
   },
+  addShape() {
+    var Shape = F2.Shape;
+    var Util = F2.Util;
+    Shape.registerShape('interval', 'text', {
+      draw: function draw(cfg, container) {
+        var points = this.parsePoints(cfg.points);
+        var style = {
+          fill: cfg.color,
+          z: true // 需要闭合
+        };
+        container.addShape('rect', {
+          attrs: Util.mix({
+            x: points[1].x,
+            y: points[1].y,
+            width: points[2].x - points[1].x,
+            height: points[0].y - points[1].y
+          }, style)
+        });
+
+        var origin = cfg.origin._origin; // 获取对应的原始数据
+        return container.addShape('text', {
+          attrs: {
+            x: (points[1].x + points[2].x) / 2,
+            y: (points[0].y + points[1].y) / 2,
+            text: origin.num,
+            fill: '#fff',
+            textAlign: 'center',
+            textBaseline: 'middle'
+          }
+        });
+      }
+    });
+  },
+  addShape2() {
+    var Shape = F2.Shape;
+    var Util = F2.Util;
+    var G = F2.G;
+    Shape.registerShape('interval', 'text', {
+      draw: function draw(cfg, container) {
+        var points = this.parsePoints(cfg.points);
+        var style = {
+          fill: cfg.color,
+          z: true // 需要闭合
+        };
+        var shapes = [];
+        var intervalWidth = points[1].x - points[0].x;
+        var interval = container.addShape('rect', {
+          attrs: Util.mix({
+            x: points[0].x,
+            y: points[0].y,
+            width: intervalWidth,
+            height: points[3].y - points[0].y
+            //x: points[1].x,
+            //y: points[1].y,
+            //width: points[2].x - points[1].x,
+            //height: points[0].y - points[1].y
+          }, style)
+        }); // 绘制柱形
+        shapes.push(interval);
+        var origin = cfg.origin._origin; // 获取对应的原始数据
+        var textOffsetX = 4;
+
+        var text = new G.Shape.Text({
+          attrs: {
+            //x: points[0].x + textOffsetX,
+            //y: (points[0].y + points[3].y) / 2,
+            x: (points[0].x + points[1].x) / 2,
+            y: (points[0].y + points[3].y) / 2,
+            text: origin.num,
+            fill: '#fff',
+            textAlign: 'center',
+            textBaseline: 'middle',
+            fontSize: 10
+          }
+        });
+        var textWidth = text.getBBox().width;
+        if (textWidth + textOffsetX < intervalWidth) {
+          container.add(text);
+          shapes.push(text);
+        }
+        return shapes;
+      }
+    });
+  },
   //获取默认时间（当月的第一天和最后一天）
   getNowFormatDate() {
     var date = new Date();
@@ -81,62 +165,7 @@ Page({
   onDraw(ddChart, F2) {
     //dd-charts组件内部会回调此方法，返回图表实例ddChart
     //提示：可以把异步获取数据及渲染图表逻辑放onDraw回调里面
-
     this.getDistrictChartData(ddChart, F2);
-    /*ddChart.clear()
-   
-    ddChart.source(chartDataNew, {
-      population: {
-        tickCount: 5
-      }
-    })
-    ddChart.coord({
-      transposed: true
-    })
-    ddChart.axis('task', {
-      line: F2.Global._defaultAxis.line,
-      grid: null
-    })
-    ddChart.axis('num', {
-      line: null,
-      grid: F2.Global._defaultAxis.grid,
-      label: function label(text, index, total) {
-        var textCfg = {};
-        if (index === 0) {
-          textCfg.textAlign = 'left';
-        } else if (index === total - 1) {
-          textCfg.textAlign = 'right';
-        }
-        return textCfg;
-      }
-    })
-    ddChart.tooltip({
-      custom: true, // 自定义 tooltip 内容框
-      onChange: function onChange(obj) {
-        var legend = ddChart.get('legendController').legends.top[0];
-        var tooltipItems = obj.items;
-        var legendItems = legend.items;
-        var map = {};
-        legendItems.map(function(item) {
-          map[item.name] = _.clone(item);
-        });
-        tooltipItems.map(function(item) {
-          var name = item.name;
-          var value = item.value;
-          if (map[name]) {
-            map[name].value = value;
-          }
-        });
-        legend.setItems(_.values(map));
-      },
-      onHide: function onHide() {
-        var legend = ddChart.get('legendController').legends.top[0];
-        legend.setItems(ddChart.getLegendItems().country);
-      }
-    });
-
-    ddChart.interval().position('task*num').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust('stack');
-    ddChart.render()*/
   },
   getDistrictChartData(ddChart, F2) {
     dd.showLoading();
@@ -156,7 +185,7 @@ Page({
         const chartDataNew = this.data.items;
         if (!this.data.chart) {
           ddChart.clear()
-
+          this.addShape2();
           ddChart.source(chartDataNew, {
             population: {
               tickCount: 5
@@ -189,10 +218,10 @@ Page({
               var tooltipItems = obj.items;
               var legendItems = legend.items;
               var map = {};
-              legendItems.map(function (item) {
+              legendItems.map(function(item) {
                 map[item.name] = Object.assign({}, item);
               });
-              tooltipItems.map(function (item) {
+              tooltipItems.map(function(item) {
                 var name = item.name;
                 var value = item.value;
                 if (map[name]) {
@@ -207,18 +236,18 @@ Page({
             }
           });
 
-          ddChart.interval().position('district*num').color('name', ['#13C2C2', '#9AC2AB', '#FE5D4D']).adjust('stack');
+          ddChart.interval().position('district*num').color('name', ['#13C2C2', '#9AC2AB', '#FE5D4D']).adjust('stack').shape('text');
           ddChart.render()
           this.data.chart = ddChart;
         } else {
           ddChart.changeData(chartDataNew);
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         dd.alert({ content: '获取数据异常', buttonText: '确定' });
         console.log('error:', res);
       },
-      complete: function (res) {
+      complete: function(res) {
         dd.hideLoading();
       }
     });
@@ -244,15 +273,22 @@ Page({
         const chartDataNew = this.data.itemsPre;
         if (!this.data.chartPre) {
           ddChart.clear()
-          ddChart.source(chartDataNew, {
-            population: {
-              tickCount: 5
+          this.addShape2();
+          var defs = {
+            district: {
+              range: [0.15, 0.85],
+              type: 'cat'
             }
-          })
+            //,
+            //population: {
+            //  tickCount: 5
+            //}
+          };
+          ddChart.source(chartDataNew, defs)
           ddChart.coord({
             transposed: true
           })
-          ddChart.axis('task', {
+          ddChart.axis('district', {
             line: F2.Global._defaultAxis.line,
             grid: null
           })
@@ -269,43 +305,44 @@ Page({
               return textCfg;
             }
           })
+
           ddChart.tooltip({
             custom: true, // 自定义 tooltip 内容框
             onChange: function onChange(obj) {
-              var legend = ddChart.get('legendController').legends.top[0];
+              /*var legend = ddChart.get('legendController').legends.top[0];
               var tooltipItems = obj.items;
               var legendItems = legend.items;
               var map = {};
-              legendItems.map(function (item) {
+              legendItems.map(function(item) {
                 map[item.name] = Object.assign({}, item);//_.clone(item);
               });
-              tooltipItems.map(function (item) {
+              tooltipItems.map(function(item) {
                 var name = item.name;
                 var value = item.value;
                 if (map[name]) {
                   map[name].value = value;
                 }
               });
-              legend.setItems(Object.values(map));
+              legend.setItems(Object.values(map));*/
             },
             onHide: function onHide() {
-              var legend = ddChart.get('legendController').legends.top[0];
-              legend.setItems(ddChart.getLegendItems().country);
+              /*var legend = ddChart.get('legendController').legends.top[0];
+              legend.setItems(ddChart.getLegendItems().country);*/
             }
           });
 
-          ddChart.interval().position('district*num').color('name', ['#13C2C2', '#9AC2AB', '#FE5D4D']).adjust('stack');
+          ddChart.interval().position('district*num').color('name', ['#13C2C2', '#9AC2AB', '#FE5D4D']).adjust('stack').shape('text');
           ddChart.render()
           this.data.chartPre = ddChart;
         } else {
           ddChart.changeData(chartDataNew);
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         dd.alert({ content: '获取数据异常', buttonText: '确定' });
         console.log('error:', res);
       },
-      complete: function (res) {
+      complete: function(res) {
         dd.hideLoading();
       }
     });
