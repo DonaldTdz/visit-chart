@@ -1,3 +1,4 @@
+import F2 from '@antv/my-f2';
 const chartDataNew = []
 
 let app = getApp()
@@ -25,6 +26,47 @@ Page({
   },
   onDraw(ddChart) {
     this.getAreaChar(ddChart);
+  },
+  addShape() {
+    var Shape = F2.Shape;
+    var Util = F2.Util;
+    Shape.registerShape('interval', 'text', {
+      draw: function draw(cfg, container) {
+        var points = this.parsePoints(cfg.points);
+        // points 顶点的顺序
+        // 1 ---- 2
+        // |      |
+        // 0 ---- 3
+        var style = Util.mix({
+          fill: cfg.color,
+          z: true // 需要闭合
+        }, cfg.style);
+        var intervalShape = container.addShape('rect', {
+          attrs: Util.mix({
+            x: points[1].x,
+            y: points[1].y,
+            width: points[2].x - points[1].x,
+            height: points[0].y - points[1].y
+          }, style)
+        });
+
+        var origin = cfg.origin._origin; // 获取对应的原始数据记录
+        var textShape = container.addShape('text', {
+          zIndex: 1,
+          attrs: {
+            x: (points[1].x + points[2].x) / 2,
+            y: points[1].y - 5, // 往上偏移 5 像素
+            text: origin['area'],
+            fill: '#808080',
+            textAlign: 'center',
+            textBaseline: 'bottom',
+            fontSize: 10 // 字体大小
+          }
+        });
+        container.sort();
+        return [intervalShape, textShape];
+      }
+    });
   },
   getAreaChar(ddChart) {
     dd.showLoading();
@@ -90,7 +132,7 @@ Page({
           //     return textCfg;
           //   }
           // })
-          ddChart.interval().position('areaName*area').color('groupName').adjust({
+          ddChart.interval().position('areaName*area').color('groupName').shape('text').adjust({
             type: 'dodge',
             marginRatio: 1 / 32 // 设置分组间柱子的间距
           })

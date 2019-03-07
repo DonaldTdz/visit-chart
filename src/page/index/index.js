@@ -22,13 +22,13 @@ Page({
           title: '任务统计',
           page: '../task/task',
         }, {
-          icon: '/images/column.png',
-          title: '按月统计',
-          page: '../month/month',
-        }, {
           icon: '/images/area.png',
           title: '面积落实',
           page: '../area/area',
+        }, {
+          icon: '/images/column.png',
+          title: '按月统计',
+          page: '../month/month',
         }
       ],
     }
