@@ -1,7 +1,7 @@
 <view hidden="{{items.length == 0}}" class="page-margin page-padding-bottom">
   <list>
     <!-- <view slot="header">任务列表</view> -->
-    <view slot="header">{{searchStr}}</view>
+    <view slot="header">任务明细</view>
     <block a:for="{{items}}">
       <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goVisit">{{item.taskName}}({{item.taskTypeName}})  
         <view class="am-list-brief fsize13">[{{item.areaName}}] {{item.beginTimeStr}}至{{item.endTimeStr}}</view>                         

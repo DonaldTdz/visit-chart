@@ -1,0 +1,8 @@
+{
+  "defaultTitle": "区县明细",
+  "usingComponents": {
+    "dd-charts": "dd-f2-charts/es/f2/index",
+    "list": "mini-ddui/es/list/index",
+    "list-item": "mini-ddui/es/list/list-item/index"
+  }
+}

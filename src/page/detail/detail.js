@@ -11,14 +11,15 @@ Page({
       selectedNav: 0,
       dateString: '',
       areaCode: null,
-      district:'',
+      district: '',
       taskId: null,
       startTime: null,
       endTime: null,
       status: null,
+      employeeId: null,
       pageIndex: 0,
       searchStr: '',
-      tabIndex:0,
+      tabIndex: 0,
       listData: [
         {
           nav: '开始日期',
@@ -83,16 +84,17 @@ Page({
     console.log('query:')
     console.info(`visit Page onLoad with query: ${JSON.stringify(query)}`);
     this.data.areaCode = query.areaCode;
-    this.data.district = query.district; 
+    this.data.district = query.district;
     this.data.taskId = query.taskId;
     this.data.startTime = query.startTime;
     this.data.endTime = query.endTime;
     this.data.status = query.status;
     this.data.dateString = query.dateString;
     this.data.tabIndex = query.tabIndex;
-    var statusName = this.data.status == 1 ? '计划' : (this.data.status == 2 ? '完成' : (this.data.status == 3 ? '待完成' : (this.data.status==0?'逾期':'')));
-    this.data.searchStr = (this.data.startTime != null ? this.data.startTime + '至' + this.data.startTime + '期间' : (this.data.dateString!=null?this.data.dateString + '期间':''))+ (this.data.district != null ? this.data.district+ '的' : '') + statusName+'信息';
-    this.data.searchStr=query.searchStr+'明细';
+    this.data.employeeId = query.employeeId;
+    var statusName = this.data.status == 1 ? '计划' : (this.data.status == 2 ? '完成' : (this.data.status == 3 ? '待完成' : (this.data.status == 0 ? '逾期' : '')));
+    this.data.searchStr = (this.data.startTime != null ? this.data.startTime + '至' + this.data.startTime + '期间' : (this.data.dateString != null ? this.data.dateString + '期间' : '')) + (this.data.district != null ? this.data.district + '的' : '') + statusName + '信息';
+    this.data.searchStr = query.searchStr + '明细';
     this.getSheduleDetail();
   },
 
@@ -103,14 +105,15 @@ Page({
       url: app.globalData.host + 'api/services/app/Chart/GetSheduleDetail',
       method: 'Get',
       data: {
-        pageIndex:this.data.pageIndex,
+        pageIndex: this.data.pageIndex,
         areaCode: this.data.areaCode,
         taskId: this.data.taskId,
-        startTime: this.data.startTime,
-        endTime: this.data.endTime,
+        startTime: this.data.startTime ? this.data.startTime : null,
+        endTime: this.data.endTime ? this.data.endTime : null,
         status: this.data.status,
         dateString: this.data.dateString,
-        tabIndex:this.data.tabIndex,
+        tabIndex: this.data.tabIndex,
+        employeeId: this.data.employeeId,
       },
       dataType: 'json',
       success: (res) => {
@@ -141,7 +144,7 @@ Page({
       }
     });
   },
-  
+
   // //区域改变事件
   // bindAreaChange(e) {
   //   console.log('picker发送选择改变，携带值为', e.detail.value);

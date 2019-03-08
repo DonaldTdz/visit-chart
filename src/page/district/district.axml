@@ -15,16 +15,22 @@
               <dd-charts canvasId="ddchart-dom-bar2" onDraw="onDrawPre">
               </dd-charts>
             </view>
-            <view a:if="{{itemsPre.length > 0}}" a:for="{{districtsPre}}" a:for-index="di" a:for-item="ditem">
+            <!-- <view a:if="{{itemsPre.length > 0}}" a:for="{{districtsPre}}" a:for-index="di" a:for-item="ditem"> -->
+            <view>
               <list>
-                <view slot="header">{{ditem.district}}（完成率：{{ditem.percent}}%）              
+                <list-item a:if="{{districtsPre.length > 0}}" a:for="{{districtsPre}}"  a:for-index="di" index="{{di}}" a:for-item="item" onClick="onItemDistrictClickPre" last="{{di === (districtsPre.length - 1)}}" arrow="{{true}}" wrap="{{true}}"> 
+                  {{item.district}}                                                
+                    <view slot="extra">完成率：{{item.percent}}%                
+                    </view>
+                  </list-item>
+                <!-- <view slot="header">{{ditem.district}}（完成率：{{ditem.percent}}%）              
                 </view>
                 <view a:for="{{itemsPre.slice(di*3,(di+1)*3)}}" a:for-index="index" a:for-item="item">
                   <list-item key="item-{{index}}" index="{{di*3+index}}" onClick="onItemDistrictClickPre" last="{{index === (itemsPre.length - 1)}}" arrow="{{true}}" wrap="{{true}}"> {{item.name}}                                                
                     <view slot="extra">{{item.num}}                  
                     </view>
                   </list-item>
-                </view>
+                </view>  -->
               </list>
             </view>
           </view>
@@ -44,7 +50,7 @@
               <dd-charts canvasId="ddchart-dom-bar" onDraw="onDraw">
               </dd-charts>
             </view>
-            <view a:if="{{items.length > 0}}" a:for="{{districts}}" a:for-index="di" a:for-item="ditem">
+            <!-- <view a:if="{{items.length > 0}}" a:for="{{districts}}" a:for-index="di" a:for-item="ditem">
               <list>
                 <view slot="header">{{ditem.district}}（完成率：{{ditem.percent}}%）              
                 </view>
@@ -54,6 +60,15 @@
                     </view>
                   </list-item>
                 </view>
+              </list>
+            </view>-->
+            <view>
+              <list>
+                <list-item a:if="{{districts.length > 0}}" a:for="{{districts}}"  a:for-index="di" index="{{di}}" a:for-item="item" onClick="onItemDistrictClick" last="{{di === (districts.length - 1)}}" arrow="{{true}}" wrap="{{true}}"> 
+                  {{item.district}}                                                
+                    <view slot="extra">完成率：{{item.percent}}%                
+                    </view>
+                  </list-item>
               </list>
             </view>
           </view>
