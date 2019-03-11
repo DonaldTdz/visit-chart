@@ -53,11 +53,11 @@ Page({
 
         var text = new G.Shape.Text({
           attrs: {
-            x: (points[0].x + points[1].x) / 2,
+            x: (points[1].x + textOffsetX),
             y: (points[0].y + points[3].y) / 2,
             text: origin.area,
-            fill: '#fff',
-            textAlign: 'center',
+            fill: '#000',
+            textAlign: 'start',
             textBaseline: 'middle',
             fontSize: 10
           }

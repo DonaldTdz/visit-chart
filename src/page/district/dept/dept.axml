@@ -1,0 +1,26 @@
+<view>
+  <view class="item  page-margin " a:if="{{chartDatas.length == 0}}">
+    <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
+    <text style="color:gray; margin-top:10px;">没有数据                        
+    </text>
+  </view>
+  <view class="container">
+    <dd-charts canvasId="dddeptchart" onDraw="onDraw">
+    </dd-charts>
+  </view>
+  <view a:if="{{chartDatas.length > 0}}">
+    <view>
+      <list>
+        <view slot="header">明细列表                               
+        </view>
+        <view>
+          <list-item a:for="{{chartDatas}}" index="{{index}}" a:for-index="index" a:for-item="item" onClick="onItemClick" last="{{index===(chartDatas.length-1)}}" arrow="{{true}}" wrap="{{true}}">
+            {{item.name}}                                                                             
+            <view slot="extra">完成率：{{item.percent}}%                                        
+            </view>
+          </list-item>
+        </view>
+      </list>
+    </view>
+  </view>
+</view>        

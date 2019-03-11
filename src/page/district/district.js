@@ -379,21 +379,28 @@ Page({
     });
   },
   onItemDistrictClick(index) {
-    console.log('index:')
     console.log(index);
-    var searchStr = this.data.items[index.index].district + '-' + this.data.items[index.index].name;
-    dd.navigateTo({
+    //var searchStr = this.data.items[index.index].district + '-' + this.data.items[index.index].name;
+    /*dd.navigateTo({
       url: "../detail/detail?areaCode=" + this.data.items[index.index].areaCode + "&searchStr=" + searchStr + "&district=" + this.data.items[index.index].district
         + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status + "&tabIndex=" + this.data.tabIndex,
       // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
+    });*/
+    dd.navigateTo({
+      url: "dept/dept?startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&id=" + this.data.districts[index.index].areaType + "&tabIndex=" + this.data.tabIndex,
     });
   },
   onItemDistrictClickPre(index) {
-    var searchStr = this.data.itemsPre[index.index].district + '-' + this.data.itemsPre[index.index].name;
-    dd.navigateTo({
+    //var searchStr = this.data.itemsPre[index.index].district + '-' + this.data.itemsPre[index.index].name;
+    /*dd.navigateTo({
       url: "../detail/detail?areaCode=" + this.data.itemsPre[index.index].areaCode + "&searchStr=" + searchStr + "&district=" + this.data.itemsPre[index.index].district
         + "&status=" + this.data.itemsPre[index.index].status + "&tabIndex=" + this.data.tabIndex,
       // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
+    });*/
+    //console.log(index)
+    //console.log(this.data.districtsPre[index.index]);
+    dd.navigateTo({
+      url: "dept/dept?id=" + this.data.districtsPre[index.index].areaType + "&tabIndex=" + this.data.tabIndex,
     });
   }
 })
