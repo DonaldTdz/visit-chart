@@ -190,9 +190,9 @@ Page({
     });
   },
   onGridItemTap(e) {
-    console.log(app.globalData.userInfo.areaCode);
+    // console.log(app.globalData.userInfo.areaCode);
     const curIndex = e.currentTarget.dataset.index;
-    console.log(curIndex);
+    // console.log(curIndex);
     const pageNav = this.data.arr.list[curIndex];
     if (curIndex == 2) {
       if (app.globalData.userInfo.areaCode == 4) {
