@@ -1,4 +1,3 @@
-
 import Dropdown from '../../components/dropdown';
 import F2 from '@antv/my-f2';
 
@@ -15,6 +14,7 @@ Page({
     endDate: '',
     items: [{ id: 16, name: "计划", district: "除草", num: 2, status: 1, areaCode: null, timeGroup: null }],//给予默认数据原因，页面if控制的图标才会出发请求数据
     tasks: [],
+    areaItem:[],
     dropdownSelectData: {
       active: false,
       selectedNav: 0,
@@ -33,6 +33,7 @@ Page({
         },
       ],
     },
+    areaItemPre:[],
     itemsPre: [],
     tasksPre: [],
     tabs: [
@@ -181,7 +182,8 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
-        this.setData({ tasks: res.data.result.tasks, items: res.data.result.items });
+        // this.setData({ tasks: res.data.result.tasks, items: res.data.result.items });
+        this.setData({ areaItem: res.data.result.areaItem, items: res.data.result.items });
         const chartDataNew = this.data.items;
         if (!this.data.chart) {
           ddChart.clear()
@@ -269,7 +271,9 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
-        this.setData({ tasksPre: res.data.result.tasks, itemsPre: res.data.result.items });
+        // this.setData({ tasksPre: res.data.result.tasks, itemsPre: res.data.result.items });
+        this.setData({ areaItemPre: res.data.result.areaItem, itemsPre: res.data.result.items });
+
         const chartDataNew = this.data.itemsPre;
         if (!this.data.chartPre) {
           ddChart.clear()
@@ -398,19 +402,25 @@ Page({
     this.data.tabIndex = index == 0 ? 1 : 2;
   },
   onItemClick(index) {
-    console.log('index:')
-    console.log(index)
-    dd.navigateTo({
-      url: "../district-statis/district-statis?taskId=" + this.data.items[index.index].id + "&district=" + this.data.items[index.index].district
-        + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status + "&tabIndex=" + this.data.tabIndex + "&areaCode=" + app.globalData.userInfo.areaCode,
-      // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
+    // console.log('index:')
+    // console.log(index)
+    // dd.navigateTo({
+    //   url: "../district-statis/district-statis?taskId=" + this.data.items[index.index].id + "&district=" + this.data.items[index.index].district
+    //     + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status + "&tabIndex=" + this.data.tabIndex + "&areaCode=" + app.globalData.userInfo.areaCode,
+    //   // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
+    // });
+        dd.navigateTo({
+      url: "../task/comm-task/comm-task?id=" + index.index+ "&tabIndex=" + this.data.tabIndex + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate,
     });
   },
   onItemClickPre(index) {
+    // dd.navigateTo({
+    //   url: "../district-statis/district-statis?taskId=" + this.data.itemsPre[index.index].id + "&district=" + this.data.itemsPre[index.index].district
+    //     + "&status=" + this.data.itemsPre[index.index].status + "&tabIndex=" + this.data.tabIndex + "&areaCode=" + app.globalData.userInfo.areaCode,
+    // });
+    console.log(index);
     dd.navigateTo({
-      url: "../district-statis/district-statis?taskId=" + this.data.itemsPre[index.index].id + "&district=" + this.data.itemsPre[index.index].district
-        + "&status=" + this.data.itemsPre[index.index].status + "&tabIndex=" + this.data.tabIndex + "&areaCode=" + app.globalData.userInfo.areaCode,
+      url: "../task/comm-task/comm-task?id=" + index.index+ "&tabIndex=" + this.data.tabIndex + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate,
     });
-  }
-
+  },
 })

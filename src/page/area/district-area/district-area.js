@@ -21,7 +21,7 @@ Page({
 
   },
   onReady() {
-    // console.log(app.globalData.userInfo)
+    console.log(app.globalData.userInfo.areaCode);
     this.setData({ areaCode: app.globalData.userInfo.areaCode });
   },
   onDraw(ddChart) {

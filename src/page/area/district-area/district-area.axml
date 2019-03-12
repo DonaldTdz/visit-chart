@@ -33,7 +33,7 @@
         </list-item>
       </view>
     </list>
-    <list a:if="{{areaCode == 4 ||areaCode == 2}}">
+    <list a:if="{{areaCode == 4 ||areaCode == 3}}">
       <view slot="header">旺苍县      
       </view>
       <view>

@@ -5,60 +5,63 @@
       <tab-content key="{{index}}">
         <!-- 当前任务 -->
         <view a:if="{{index==0}}">
-          <view class="item  page-margin " a:if="{{itemsPre.length == 0}}">
+          <view class="item page-margin" a:if="{{areaItemPre.length == 0}}">
             <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
-            <text style="color:gray; margin-top:10px;">没有当前任务            
+            <text style="color:gray; margin-top:10px;">没有当前任务                                                                                                
             </text>
           </view>
-          <view class="container">
-            <dd-charts canvasId="ddchart-dom-bar2" onDraw="onDrawPre">
-            </dd-charts>
-          </view>
-          <view a:if="{{itemsPre.length > 0}}">
-            <view a:for="{{tasksPre}}" a:for-index="ind" a:for-item="ditem">
-              <list>
-                <view slot="header">{{ditem.taskName}}(完成率：{{ditem.percent}}%)                
-                </view>
-                <view a:for="{{itemsPre.slice(ind*3,(ind+1)*3)}}" a:for-index="index" a:for-item="item">
-                  <list-item key="item-{{index}}" index="{{ind*3+index}}" onClick="onItemClickPre" last="{{index===(itemsPre.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.name}}                                                          
-                    <view slot="extra">{{item.num}}                    
-                    </view>
-                  </list-item>
-                </view>
-              </list>
-            </view>
-          </view>
-        </view>
-        <!-- 所有任务 -->
-        <view a:if="{{index==1}}">
           <view>
-            <template is="DropdownSelect" data="{{...dropdownSelectData}}"/>
-          </view>
-          <view class="item  page-margin " a:if="{{items.length == 0}}">
-            <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
-            <text style="color:gray; margin-top:10px;">没有任务            
-            </text>
-          </view>
-          <view class="container">
-            <dd-charts canvasId="ddchart-dom-bar" onDraw="onDraw">
-            </dd-charts>
-          </view>
-          <view a:if="{{items.length > 0}}">
-            <view a:for="{{tasks}}" a:for-index="ind" a:for-item="ditem">
-              <list>
-                <view slot="header">{{ditem.taskName}}(完成率：{{ditem.percent}}%)                
-                </view>
-                <view a:for="{{items.slice(ind*3,(ind+1)*3)}}" a:for-index="index" a:for-item="item">
-                  <list-item key="item-{{index}}" index="{{ind*3+index}}" onClick="onItemClick" last="{{index===(items.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.name}}                                                          
+            <view class="container">
+              <dd-charts canvasId="ddchart-dom-bar2" onDraw="onDrawPre">
+              </dd-charts>
+            </view>
+            <view a:if="{{areaItemPre.length > 0}}">
+              <!-- <view><view a:for="{{tasksPre}}" a:for-index="ind" a:for-item="ditem"><list><view slot="header">{{ditem.taskName}}(完成率：{{ditem.percent}}%)                
+                </view><view a:for="{{itemsPre.slice(ind*3,(ind+1)*3)}}" a:for-index="index" a:for-item="item"><list-item key="item-{{index}}" index="{{ind*3+index}}" onClick="onItemClickPre" last="{{index===(itemsPre.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.name}}                                                          
                     <view slot="extra">{{item.num}}                    
-                    </view>
-                  </list-item>
+                    </view></list-item></view></list></view></view> -->
+              <!-- <view> -->
+              <list>
+                <view slot="header">广元市                                                
                 </view>
+                <list-item a:if="{{areaItemPre.length > 0}}" a:for="{{areaItemPre}}" a:for-item="item" index="{{item.areaCode}}" onClick="onItemClickPre"last="{{index===(areaItemPre.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.areaName}}                                                                                                                                                                              
+                  <view slot="extra">完成率：{{item.percent}}%                                                                                                                                              
+                  </view>
+                </list-item>
               </list>
             </view>
           </view>
         </view>
-      </tab-content>
-    </block>
-  </tabs>
-</view>
+          <!-- 所有任务 -->
+          <view a:if="{{index==1}}">
+            <view>
+              <template is="DropdownSelect" data="{{...dropdownSelectData}}"/>
+            </view>
+            <view class="item page-margin " a:if="{{items.length == 0}}"><image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" /><text style="color:gray; margin-top:10px;">没有任务            
+            </text></view>
+            <view class="container">
+              <dd-charts canvasId="ddchart-dom-bar" onDraw="onDraw">
+              </dd-charts>
+            </view>
+            <view>
+            <!-- <view a:if="{{items.length > 0}}"> -->
+            <view a:if="{{areaItem.length > 0}}">
+              <!-- <view a:for="{{tasks}}" a:for-index="ind" a:for-item="ditem"><list><view slot="header">{{ditem.taskName}}(完成率：{{ditem.percent}}%)                                                                                                                                      
+                  </view><view a:for="{{items.slice(ind*3,(ind+1)*3)}}" a:for-index="index" a:for-item="item"><list-item key="item-{{index}}" index="{{ind*3+index}}" onClick="onItemClick" last="{{index===(items.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.name}}                                                                                                                                                                                                            
+                      <view slot="extra">{{item.num}}                                                                                                                                                                      
+                      </view></list-item></view></list></view> -->
+          <list>
+                <view slot="header">广元市                                                
+                </view>
+                <list-item a:if="{{areaItem.length > 0}}" a:for="{{areaItem}}" a:for-item="item" index="{{item.areaCode}}" onClick="onItemClick"last="{{index===(areaItem.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.areaName}}                                                                                                                                                                              
+                  <view slot="extra">完成率：{{item.percent}}%                                                                                                                                              
+                  </view>
+                </list-item>
+              </list>
+            </view>
+        </view>
+          </view>
+          </tab-content>
+          </block>
+          </tabs>
+        </view>
