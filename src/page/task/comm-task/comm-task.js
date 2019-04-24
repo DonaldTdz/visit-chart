@@ -86,6 +86,7 @@ Page({
         startTime: this.data.startTime,
         endTime: this.data.endTime,
         tabIndex: this.data.tabIndex,
+        type: this.data.type,
         areaCode: app.globalData.userInfo.areaCode
       },
       dataType: 'json',
