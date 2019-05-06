@@ -14,7 +14,7 @@ Page({
     endDate: '',
     items: [{ id: 16, name: "计划", district: "除草", num: 2, status: 1, areaCode: null, timeGroup: null }],//给予默认数据原因，页面if控制的图标才会出发请求数据
     tasks: [],
-    areaItem:[],
+    areaItem: [],
     dropdownSelectData: {
       active: false,
       selectedNav: 0,
@@ -33,7 +33,7 @@ Page({
         },
       ],
     },
-    areaItemPre:[],
+    areaItemPre: [],
     itemsPre: [],
     tasksPre: [],
     tabs: [
@@ -47,6 +47,21 @@ Page({
   },
   onReady() {
 
+  },
+  getSnapRecords() {
+    canvas.onclick = function(event) {
+      let point = {
+        x: event.clientX,
+        y: event.clientY
+      };
+      point = F2.Util.getRelativePosition(point, canvas);
+      const x = parseInt(point.x);
+      const y = parseInt(point.y);
+      console.log("x:" + x + ";" + "y:" + y);
+      // 根据画布坐标获取对应数据集
+      const data = chart.getSnapRecords(point);
+      console.log(data);
+    }
   },
   addShape() {
     var Shape = F2.Shape;
@@ -68,6 +83,7 @@ Page({
         });
 
         var origin = cfg.origin._origin; // 获取对应的原始数据
+        // console.log(origin.num);
         return container.addShape('text', {
           attrs: {
             x: (points[1].x + points[2].x) / 2,
@@ -109,6 +125,7 @@ Page({
         shapes.push(interval);
         var origin = cfg.origin._origin; // 获取对应的原始数据
         var textOffsetX = 4;
+        // console.log(origin.num);
 
         var text = new G.Shape.Text({
           attrs: {
@@ -185,8 +202,10 @@ Page({
         // this.setData({ tasks: res.data.result.tasks, items: res.data.result.items });
         this.setData({ areaItem: res.data.result.areaItem, items: res.data.result.items });
         const chartDataNew = this.data.items;
+        const percent = res.data.result.tasks;
         if (!this.data.chart) {
-          ddChart.clear()
+          ddChart.clear();
+          ddChart.guide().clear();
           this.addShape2();
           ddChart.source(chartDataNew, {
             population: {
@@ -212,7 +231,25 @@ Page({
               }
               return textCfg;
             }
-          })
+          });
+          // 辅助元素
+          percent.forEach(function(obj, index) {
+            // 文字部分
+            ddChart.guide().text({
+              position: [obj.taskName, 'median'],
+              content: '完成率：' + obj.percent + '%',
+              style: {
+                fill: '#DC143C',
+                fontSize: '13',
+                // fontWeight: 'bold', // 文本粗细
+                textBaseline: 'bottom',
+                textAlign: 'left'
+              },
+              offsetX: 8,
+              offsetY: 8
+            });
+          });
+
           ddChart.tooltip({
             custom: true, // 自定义 tooltip 内容框
             onChange: function onChange(obj) {
@@ -242,6 +279,23 @@ Page({
           ddChart.render()
           this.data.chart = ddChart;
         } else {
+          ddChart.guide().clear();
+          ddChart.repaint()
+          percent.forEach(function(obj, index) {
+            ddChart.guide().text({
+              position: [obj.taskName, 'median'],
+              content: '完成率：' + obj.percent + '%',
+              style: {
+                fill: '#DC143C',
+                fontSize: '13',
+                // fontWeight: 'bold', // 文本粗细
+                textBaseline: 'bottom',
+                textAlign: 'left'
+              },
+              offsetX: 8,
+              offsetY: 8
+            });
+          });
           ddChart.changeData(chartDataNew);
         }
       },
@@ -273,10 +327,12 @@ Page({
       success: (res) => {
         // this.setData({ tasksPre: res.data.result.tasks, itemsPre: res.data.result.items });
         this.setData({ areaItemPre: res.data.result.areaItem, itemsPre: res.data.result.items });
-
+        // this.data.tasksPre = res.data.result.tasks;
+        const prePercent = res.data.result.tasks;
         const chartDataNew = this.data.itemsPre;
         if (!this.data.chartPre) {
-          ddChart.clear()
+          ddChart.clear();
+          ddChart.guide().clear();
           this.addShape2();
           var defs = {
             district: {
@@ -309,7 +365,23 @@ Page({
               return textCfg;
             }
           })
-
+          // 辅助元素
+          prePercent.forEach(function(obj, index) {
+            // 文字部分
+            ddChart.guide().text({
+              position: [obj.taskName, 'median'],
+              content: '完成率：' + obj.percent + '%',
+              style: {
+                fill: '#DC143C',
+                fontSize: '13',
+                // fontWeight: 'bold', // 文本粗细
+                textBaseline: 'bottom',
+                textAlign: 'left'
+              },
+              offsetX: 8,
+              offsetY: 8        
+            });
+          });
           ddChart.tooltip({
             custom: true, // 自定义 tooltip 内容框
             onChange: function onChange(obj) {
@@ -339,6 +411,23 @@ Page({
           ddChart.render()
           this.data.chartPre = ddChart;
         } else {
+          ddChart.guide().clear();
+          ddChart.repaint();
+          prePercent.forEach(function(obj, index) {
+            ddChart.guide().text({
+              position: [obj.taskName, 'median'],
+              content: '完成率：' + obj.percent + '%',
+              style: {
+                fill: '#DC143C',
+                fontSize: '13',
+                // fontWeight: 'bold', // 文本粗细
+                textBaseline: 'bottom',
+                textAlign: 'left'
+              },
+              offsetX: 7,
+              offsetY: 7
+            });
+          });
           ddChart.changeData(chartDataNew);
         }
       },
@@ -409,8 +498,8 @@ Page({
     //     + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate + "&status=" + this.data.items[index.index].status + "&tabIndex=" + this.data.tabIndex + "&areaCode=" + app.globalData.userInfo.areaCode,
     //   // url: "../task/visit/visit?id=" + this.data.items[data.index].id,
     // });
-        dd.navigateTo({
-      url: "../task/comm-task/comm-task?id=" + index.index+ "&tabIndex=" + this.data.tabIndex + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate,
+    dd.navigateTo({
+      url: "../task/comm-task/comm-task?id=" + index.index + "&tabIndex=" + this.data.tabIndex + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate,
     });
   },
   onItemClickPre(index) {
@@ -420,7 +509,7 @@ Page({
     // });
     console.log(index);
     dd.navigateTo({
-      url: "../task/comm-task/comm-task?id=" + index.index+ "&tabIndex=" + this.data.tabIndex + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate,
+      url: "../task/comm-task/comm-task?id=" + index.index + "&tabIndex=" + this.data.tabIndex + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate,
     });
   },
 })

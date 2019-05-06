@@ -17,7 +17,7 @@ Page({
     tabIndex: 0
   },
   onLoad(query) {
-    console.log(query);
+    // console.log(query);
     this.setData({ id: query.id, startTime: query.startTime, endTime: query.endTime, tabIndex: query.tabIndex });
   },
   onReady() {
@@ -94,8 +94,10 @@ Page({
         // this.setData({ tasks: res.data.result.tasks, items: res.data.result.items });
         this.setData({ areaItem: res.data.result.areaItem, items: res.data.result.items });
         const chartDataNew = this.data.items;
+        const percent = res.data.result.tasks;
         if (!this.data.chart) {
           ddChart.clear()
+          ddChart.guide().clear();
           this.addShape2();
           ddChart.source(chartDataNew, {
             population: {
@@ -121,7 +123,24 @@ Page({
               }
               return textCfg;
             }
-          })
+          });
+          // 辅助元素
+          percent.forEach(function(obj, index) {
+            // 文字部分
+            ddChart.guide().text({
+              position: [obj.taskName, 'median'],
+              content: '完成率：' + obj.percent + '%',
+              style: {
+                fill: '#DC143C',
+                fontSize: '13',
+                // fontWeight: 'bold', // 文本粗细
+                textBaseline: 'bottom',
+                textAlign: 'left'
+              },
+              offsetX: 8,
+              offsetY: 8
+            });
+          });
           ddChart.tooltip({
             custom: true, // 自定义 tooltip 内容框
             onChange: function onChange(obj) {
@@ -151,6 +170,23 @@ Page({
           ddChart.render()
           this.data.chart = ddChart;
         } else {
+          ddChart.guide().clear();
+          ddChart.repaint()
+          percent.forEach(function(obj, index) {
+            ddChart.guide().text({
+              position: [obj.taskName, 'median'],
+              content: '完成率：' + obj.percent + '%',
+              style: {
+                fill: '#DC143C',
+                fontSize: '13',
+                // fontWeight: 'bold', // 文本粗细
+                textBaseline: 'bottom',
+                textAlign: 'left'
+              },
+              offsetX: 8,
+              offsetY: 8
+            });
+          });
           ddChart.changeData(chartDataNew);
         }
       },
@@ -176,8 +212,8 @@ Page({
       //employee
       dd.navigateTo({
         url: "../../detail/detail?employeeId=" + row.deptId
-          + (this.data.startDate ? "&startTime=" + this.data.startDate : '')
-          + (this.data.endDate ? "&endTime=" + this.data.endDate : '')
+          + (this.data.startTime ? "&startTime=" + this.data.startTime : '')
+          + (this.data.endTime ? "&endTime=" + this.data.endTime : '')
           + "&type=" + row.type
           + "&tabIndex=" + this.data.tabIndex,
       });

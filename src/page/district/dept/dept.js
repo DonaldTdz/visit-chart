@@ -16,7 +16,8 @@ Page({
     type: null
   },
   onLoad(query) {
-    this.setData({ deptIdOrAreaCode: query.id, startDate: query.startDate, endDate: query.endDate, tabIndex: query.tabIndex, type: query.type });
+    console.log(query);
+    this.setData({ deptIdOrAreaCode: query.id, startDate: query.startTime, endDate: query.endTime, tabIndex: query.tabIndex, type: query.type });
   },
   onReady() {
   },
@@ -81,8 +82,8 @@ Page({
       method: 'Get',
       data: {
         userId: app.globalData.userInfo.id,
-        startTime: this.data.startDate,
-        endTime: this.data.endDate,
+        startDate: this.data.startDate,
+        endDate: this.data.endDate,
         tabIndex: this.data.tabIndex,
         deptIdOrAreaCode: this.data.deptIdOrAreaCode,
         type: this.data.type
