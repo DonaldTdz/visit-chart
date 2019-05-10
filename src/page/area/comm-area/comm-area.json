@@ -1,5 +1,5 @@
 {
-  "defaultTitle": "面积落实",
+  "defaultTitle": "面积核实",
    "usingComponents":{
         "dd-charts": "dd-f2-charts/es/f2/index",
         "list":"mini-ddui/es/list/index",

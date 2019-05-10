@@ -1,5 +1,5 @@
 {
-  "defaultTitle": "面积落实",
+  "defaultTitle": "面积核实",
    "usingComponents":{
          "card":"mini-ddui/es/card/index",
         "list":"mini-ddui/es/list/index",

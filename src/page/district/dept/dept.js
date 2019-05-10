@@ -162,7 +162,9 @@ Page({
     } else {
       dd.navigateTo({
         url: "dept?id=" + row.id
-          + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate
+          // + "&startTime=" + this.data.startDate + "&endTime=" + this.data.endDate
+              + (this.data.startDate? "&startTime=" + this.data.startDate : '')
+        + (this.data.endDate? "&endTime=" + this.data.endDate : '')
           + "&type=" + row.type
           + "&tabIndex=" + this.data.tabIndex,
       });

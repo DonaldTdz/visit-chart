@@ -23,7 +23,7 @@
         </view>
       </list-item>
       <list-item a:if="{{vgDetail.growerInfo.actualArea}}">
-        <view>落实面积
+        <view>核实面积
         </view>
         <view slot="extra">{{vgDetail.growerInfo.actualArea}}亩
         </view>
@@ -32,11 +32,11 @@
   </view>
   <view class="page-margin page-padding-bottom" >
     <list>
-      <view slot="header">面积落实记录
+      <view slot="header">面积核实记录
       </view>
       <block a:if="{{vgDetail.visitRecords.length == 0}}">
         <list-item last="true">
-          <view class="nodata">还没有落实记录
+          <view class="nodata">还没有核实记录
           </view>
         </list-item>
       </block>

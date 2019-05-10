@@ -21,10 +21,10 @@
           <view style="float:right;width:40%;"></view>
           <view style="float:left;width:20%;">约定:{{item.expected}}亩
           </view>
-          <view style="text-alain:left;float:right;width:20%;">落实:{{item.actual}}亩
+          <view style="text-alain:left;float:right;width:20%;">核实:{{item.actual}}亩
           </view> -->
           <view>
-            {{item.areaName}}（约定：{{item.expected}}亩 落实：{{item.actual}}亩）
+            {{item.areaName}}（约定：{{item.expected}}亩 核实：{{item.actual}}亩）
           </view>
         </list-item>
       </view>

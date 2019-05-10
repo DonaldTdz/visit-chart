@@ -23,7 +23,7 @@ Page({
           page: '../task/task',
         }, {
           icon: '/images/area.png',
-          title: '面积落实',
+          title: '面积核实',
           page: '../area/area',
         }, {
           icon: '/images/column.png',

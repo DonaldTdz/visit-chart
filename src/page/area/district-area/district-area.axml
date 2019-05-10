@@ -16,7 +16,7 @@
         <list-item onClick="onItemMothClick" index="1" last="{{false}}" arrow="{{true}}" wrap="{{true}}">
           <view style="float:left;width:40%;">约定：{{zhExpected}}亩          
           </view>
-          <view style="text-alain:left;float:right;width:40%;">落实：{{zhActual}}亩          
+          <view style="text-alain:left;float:right;width:40%;">核实：{{zhActual}}亩          
           </view>
         </list-item>
       </view>
@@ -28,7 +28,7 @@
         <list-item onClick="onItemMothClick" index="2" last="{{false}}" arrow="{{true}}" wrap="{{true}}">
           <view style="float:left;width:40%;">约定：{{jgExpected}}亩          
           </view>
-          <view style="text-alain:left;float:right;width:40%;">落实：{{jgActual}}亩          
+          <view style="text-alain:left;float:right;width:40%;">核实：{{jgActual}}亩          
           </view>
         </list-item>
       </view>
@@ -40,7 +40,7 @@
         <list-item onClick="onItemMothClick" index="3" last="{{true}}" arrow="{{true}}" wrap="{{true}}">
           <view style="float:left;width:40%;">约定：{{wcExpected}}亩          
           </view>
-          <view style="text-alain:left;float:right;width:40%;">落实：{{wcActual}}亩          
+          <view style="text-alain:left;float:right;width:40%;">核实：{{wcActual}}亩          
           </view>
         </list-item>
       </view>

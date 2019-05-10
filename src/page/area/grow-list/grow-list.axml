@@ -13,7 +13,7 @@
       <view>
         <list-item a:for="{{items}}" key="item-{{index}}" index="{{index}}" onClick="onItemGrowerClick" last="{{index===(items.length-1)}}" arrow="{{true}}" wrap="{{true}}">
           <view>
-            {{item.areaName}}（约定：{{item.expected}}亩 落实：{{item.actual}}亩）
+            {{item.areaName}}（约定：{{item.expected}}亩 核实：{{item.actual}}亩）
           </view>
         </list-item>
       </view>
