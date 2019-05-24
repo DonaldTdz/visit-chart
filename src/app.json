@@ -15,7 +15,8 @@
     "page/area/grower/grower",
     "page/area/grower-area/grower-area",
     "page/district/dept/dept",
-    "page/task/comm-task/comm-task"
+    "page/task/comm-task/comm-task",
+    "page/district-statis/comm-statis/comm-statis"
   ],
   "window": {
     "enableWK": "YES",

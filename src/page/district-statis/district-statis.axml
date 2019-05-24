@@ -1,17 +1,21 @@
  
-<import src="../../components/dropdown/index.axml" />
+<!-- <import src="../../components/dropdown/index.axml" /> -->
 <view class="item  page-margin " a:if="{{items.length == 0}}">
   <image style="width: 80px; height:80px;" mode="aspectFit" src="../../images/nodata-search.png" />
-  <text style="color:gray; margin-top:10px;">没有数据                        
+  <text style="color:gray; margin-top:10px;">没有数据                            
   </text>
+</view>
+<view class="container">
+  <dd-charts canvasId="ddchart-dom-bar2" onDraw="onDraw">
+  </dd-charts>
 </view>
 <view a:if="{{items.length > 0}}">
   <list>
-    <view slot="header">{{searchStr}}                                    
+    <view slot="header">{{searchStr}}                                       
     </view>
     <view a:for="{{items}}" a:for-index="index" a:for-item="item">
-      <list-item key="item-{{index}}" index="{{index}}" onClick="onItemClick" last="{{index===(items.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.areaName}}                                                                                        
-        <view slot="extra">{{item.num}}                                                  
+      <list-item key="item-{{index}}" index="{{item.areaCode}}" onClick="onItemClick" last="{{index===(items.length-1)}}" arrow="{{true}}" wrap="{{true}}">{{item.areaName}}                                                                                                        
+        <view slot="extra">{{item.num}}                                                                  
         </view>
       </list-item>
     </view>
